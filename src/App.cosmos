@@ -1,0 +1,64 @@
+//This is a concept layout
+
+//Functional syntax
+<script>
+	import { onMount, onRender } from 'cosmos';
+
+	$props: (prop1, prop2)
+
+	//Reactive by default
+	let variable = "test";
+
+	onMount(() => {
+		
+	})
+
+	onRender(() => {
+		return (
+				<h1>Bruh</h1>
+		)
+	})
+
+	export function test () {
+
+	}
+</script>
+
+//External import
+<script src="./bruh.js"></script>
+
+//Class syntax
+<script>
+	import Cosmos from '@cosmos/class';
+	export default class App extends Cosmos {
+		props = ["prop1", "prop2"]
+
+		mounted () {
+
+		}
+
+		render () {
+			return (
+				<h1>Bruh</h1>
+			)
+		}
+	}
+
+	export function test () {
+
+	}
+</script>
+
+<style global>
+	.bruh {
+		color: -variable-
+	}
+</style>
+
+<template>
+	<h1>Bruh</h1>
+</template>
+
+//or 
+
+<h1>Bruh</h1>
