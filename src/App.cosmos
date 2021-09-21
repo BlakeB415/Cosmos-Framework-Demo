@@ -15,7 +15,7 @@
 
 	onRender(() => {
 		return (
-				<h1>Bruh</h1>
+				<h1>Test</h1>
 		)
 	})
 
@@ -51,14 +51,14 @@
 
 <style global>
 	.bruh {
-		color: -variable-
+		color: --variable
 	}
 </style>
 
 <template>
-	<h1>Bruh</h1>
+	<h1>Test</h1>
 </template>
 
 //or 
 
-<h1>Bruh</h1>
+<h1>Test</h1>

@@ -6,7 +6,7 @@
 	const port = 3000
 
 	const pool = new StaticPool({
-		size: 200,
+		size: 20,
 		task: "./ssr/render.js"
 	});
 

@@ -3,8 +3,7 @@ import resolve from '@rollup/plugin-node-resolve';
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
 import babel from '@rollup/plugin-babel';
-import cosmos from 'cosmos';
-const Cosmos = cosmos.Compiler;
+import Cosmos from 'cosmos/compiler';
 const babel_ = babel.babel;
 
 import child_process from 'child_process';
@@ -37,6 +36,7 @@ export default ['bundle', 'bundle_ssr'].map((name, index) => ({
 		sourcemap: true,
 		format: name == "bundle" ? 'iife' : "cjs",
 		name: 'app',
+		exports: 'auto',
 		file: `public/build/${name}.js`
 	},
 	plugins: [
@@ -46,19 +46,27 @@ export default ['bundle', 'bundle_ssr'].map((name, index) => ({
 		// consult the documentation for details:
 		// https://github.com/rollup/plugins/tree/master/packages/commonjs
 		//Does JSX shit.
-		babel_({ babelHelpers: 'bundled' }),
+		babel_({
+			"plugins": [
+				["@babel/plugin-transform-react-jsx", {
+					"pragma": "this.createElement"
+				}]
+			],
+			include: './src/**',
+			babelHelpers: 'inline'
+		}),
 		Cosmos(),
-		name == "bundle" ? resolve({browser: true}) : undefined,
-		name == "bundle" ? commonjs() : undefined,
+		name == "bundle" ? resolve({ browser: true }) : resolve(),
+		commonjs(),
 		
 
 		// In dev mode, call `npm run start` once
 		// the bundle has been generated
-		//!production && serve(),
+		name == "bundle" ? !production && serve() : undefined,
 
 		// Watch the `public` directory and refresh the
 		// browser on changes when not in production
-		//!production && livereload('public'),
+		name == "bundle" ? !production && livereload('public') : undefined,
 
 		// If we're building for production (npm run build
 		// instead of npm run dev), minify

@@ -1,16 +1,10 @@
-import { Component, onMount, onRender, variable } from 'cosmos';
-export default class App extends Component {
+import { Component, onMount, onRender, onDestroy, variable } from 'cosmos';
+export default class Test extends Component {
 	//Register variable to instance
 
 	instance () {
-		let test = variable(0);
-
-		let second_counter = 100;
-		test.set(second_counter++)
-
-		setInterval(() => {
-			test.set(second_counter++)
-		}, 1000)
+		//console.log('test', this.$parent);
+		let test = this.$props.test;
 
 		onMount(() => {
 			console.log('Mounted');
@@ -25,6 +19,14 @@ export default class App extends Component {
 					</div>
 					{test} <br/>
 					{test} <br/>
+					{this.condition([test], (vars) => { //This method would be added automatically during compile process.
+								return (vars[0] >= 10 && vars[0] <= 100) ? (
+									<h1>Reactivity Test {test} 
+									{this.condition([test], (vars) => { return (vars[0] >= 30 && vars[0] <= 50) || (vars[0] >= 70 && vars[0] <= 100) ? <h1>Bruh</h1> : null; })}
+									<br/>
+									</h1>
+								): null; 
+					})}
 				</div>
 			)
 		})

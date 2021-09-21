@@ -1,2 +1,2440 @@
-!function(){"use strict";var t="undefined"!=typeof globalThis?globalThis:"undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof self?self:{};var e,n,r=(e=function(e,n){!function(e){class n{_parentElement;_childrenElements=new Set;$parent;$children=new Set;constructor(t={}){void 0!==t.mount&&"undefined"!=typeof window&&(t.mount.innerHTML="",this.mount(t.mount))}set_parent(t){this._parentElement=t}add_child(t){t.set_parent(this),this._childrenElements.add(t)}remove_child(t){this._childrenElements.delete(t)}async mount(t,e=!1){this._parentElement=t,i(this),await this.instance(),this.add_child(await this.render()),this.beforeMounted&&await this.beforeMounted();for(let n of this._childrenElements)e?await n.mount(t,e):await n.mount(t);this.mounted&&await this.mounted()}async destroy(){this.beforeUnmount&&await this.beforeUnmount(),this._parentElement&&this._parentElement.remove_child&&this._parentElement.remove_child(this);for(let t of this._childrenElements)await t.destroy();this.unmounted&&await this.unmounted()}createElement(t,e={},...n){if(n=n.filter((t=>!1!==t)),null==e&&(e={}),"string"==typeof t){let r=new h(t,[],e);for(const[t,i]of Object.entries(n))"object"==typeof i&&null==i.subscribe?r.add_child(i):r.add_child(new h("#text",[i],e));return r}return new t(n,e)}condition(t,e){return new p(t,e)}}let r;function i(t){r=t}function o(){return r}function s(t){o().beforeMounted=t}function a(t){o().mounted=t}function c(t){o().beforeUnmount=t}function u(t){o().unmounted=t}function l(t){o().render=t}class h{_parentElement;_childrenElements=new Set;$parent;$children=new Set;_element;_attrs;_updateListeners=new Set;_eventListeners=[];constructor(t,e,n={},r){if("#text"==t)void 0!==e[0].subscribe?(this._element=document.createTextNode(e[0].get()),this._updateListeners.add(e[0].subscribe(((t,e)=>{this._element.textContent=t})))):this._element=document.createTextNode(e[0]);else{this._element=document.createElement(t);for(const[t,n]of Object.entries(e))this.add_child(n);this.set_attributes(n)}}set_attributes(t){for(let[e,n]of Object.entries(t))e.startsWith("on")&&"function"==typeof n?(this._element.addEventListener(e.replace("on","").toLowerCase(),n),this._eventListeners.push({fn:n,e:e.replace("on","").toLowerCase()})):void 0!==n.subscribe?(this._element.setAttribute(e,n.get()),this._updateListeners.add(n.subscribe(((t,n)=>{this._element.setAttribute(e,t)})).bind(this))):this._element.setAttribute(e,n)}set_parent(t){this._parentElement=t}add_child(t){t.set_parent(this),this._childrenElements.add(t)}remove_child(t){this._childrenElements.delete(t)}async mount(t,e=!1){e?t.parentNode.insertBefore(this._element,t):t.appendChild(this._element);for(let t of this._childrenElements)await t.mount(this._element)}async destroy(){for(let t of this._updateListeners)t();for(let t of this._eventListeners)this._element.removeEventListener(t.e,t.fn);this._element.remove(),this._parentElement&&this._parentElement.remove_child(this);for(let t of this._childrenElements)await t.destroy()}}var f="undefined"!=typeof globalThis?globalThis:"undefined"!=typeof window?window:void 0!==t?t:"undefined"!=typeof self?self:{};function d(t,e){return t(e={exports:{}},e.exports),e.exports}var _=d((function(t,e){var n=200,r="__lodash_hash_undefined__",i=1,o=2,s=9007199254740991,a="[object Arguments]",c="[object Array]",u="[object AsyncFunction]",l="[object Boolean]",h="[object Date]",d="[object Error]",_="[object Function]",p="[object GeneratorFunction]",m="[object Map]",v="[object Number]",b="[object Null]",y="[object Object]",g="[object Promise]",w="[object Proxy]",E="[object RegExp]",j="[object Set]",x="[object String]",A="[object Symbol]",O="[object Undefined]",z="[object WeakMap]",L="[object ArrayBuffer]",S="[object DataView]",T="[object Float64Array]",M="[object Int8Array]",C="[object Int16Array]",k="[object Int32Array]",$="[object Uint8Array]",U="[object Uint8ClampedArray]",I="[object Uint16Array]",P="[object Uint32Array]",F=/[\\^$.*+?()[\]{}|]/g,N=/^\[object .+?Constructor\]$/,R=/^(?:0|[1-9]\d*)$/,V={};V["[object Float32Array]"]=V[T]=V[M]=V[C]=V[k]=V[$]=V[U]=V[I]=V[P]=!0,V[a]=V[c]=V[L]=V[l]=V[S]=V[h]=V[d]=V[_]=V[m]=V[v]=V[y]=V[E]=V[j]=V[x]=V[z]=!1;var B="object"==typeof f&&f&&f.Object===Object&&f,D="object"==typeof self&&self&&self.Object===Object&&self,W=B||D||Function("return this")(),H=e&&!e.nodeType&&e,q=H&&t&&!t.nodeType&&t,G=q&&q.exports===H,J=G&&B.process,K=function(){try{return J&&J.binding&&J.binding("util")}catch(t){}}(),Q=K&&K.isTypedArray;function X(t,e){for(var n=-1,r=null==t?0:t.length,i=0,o=[];++n<r;){var s=t[n];e(s,n,t)&&(o[i++]=s)}return o}function Y(t,e){for(var n=-1,r=e.length,i=t.length;++n<r;)t[i+n]=e[n];return t}function Z(t,e){for(var n=-1,r=null==t?0:t.length;++n<r;)if(e(t[n],n,t))return!0;return!1}function tt(t,e){for(var n=-1,r=Array(t);++n<t;)r[n]=e(n);return r}function et(t){return function(e){return t(e)}}function nt(t,e){return t.has(e)}function rt(t,e){return null==t?void 0:t[e]}function it(t){var e=-1,n=Array(t.size);return t.forEach((function(t,r){n[++e]=[r,t]})),n}function ot(t,e){return function(n){return t(e(n))}}function st(t){var e=-1,n=Array(t.size);return t.forEach((function(t){n[++e]=t})),n}var at,ct=Array.prototype,ut=Function.prototype,lt=Object.prototype,ht=W["__core-js_shared__"],ft=ut.toString,dt=lt.hasOwnProperty,_t=(at=/[^.]+$/.exec(ht&&ht.keys&&ht.keys.IE_PROTO||""))?"Symbol(src)_1."+at:"",pt=lt.toString,mt=RegExp("^"+ft.call(dt).replace(F,"\\$&").replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g,"$1.*?")+"$"),vt=G?W.Buffer:void 0,bt=W.Symbol,yt=W.Uint8Array,gt=lt.propertyIsEnumerable,wt=ct.splice,Et=bt?bt.toStringTag:void 0,jt=Object.getOwnPropertySymbols,xt=vt?vt.isBuffer:void 0,At=ot(Object.keys,Object),Ot=ze(W,"DataView"),zt=ze(W,"Map"),Lt=ze(W,"Promise"),St=ze(W,"Set"),Tt=ze(W,"WeakMap"),Mt=ze(Object,"create"),Ct=Ie(Ot),kt=Ie(zt),$t=Ie(Lt),Ut=Ie(St),It=Ie(Tt),Pt=bt?bt.prototype:void 0,Ft=Pt?Pt.valueOf:void 0;function Nt(t){var e=-1,n=null==t?0:t.length;for(this.clear();++e<n;){var r=t[e];this.set(r[0],r[1])}}function Rt(){this.__data__=Mt?Mt(null):{},this.size=0}function Vt(t){var e=this.has(t)&&delete this.__data__[t];return this.size-=e?1:0,e}function Bt(t){var e=this.__data__;if(Mt){var n=e[t];return n===r?void 0:n}return dt.call(e,t)?e[t]:void 0}function Dt(t){var e=this.__data__;return Mt?void 0!==e[t]:dt.call(e,t)}function Wt(t,e){var n=this.__data__;return this.size+=this.has(t)?0:1,n[t]=Mt&&void 0===e?r:e,this}function Ht(t){var e=-1,n=null==t?0:t.length;for(this.clear();++e<n;){var r=t[e];this.set(r[0],r[1])}}function qt(){this.__data__=[],this.size=0}function Gt(t){var e=this.__data__,n=de(e,t);return!(n<0||(n==e.length-1?e.pop():wt.call(e,n,1),--this.size,0))}function Jt(t){var e=this.__data__,n=de(e,t);return n<0?void 0:e[n][1]}function Kt(t){return de(this.__data__,t)>-1}function Qt(t,e){var n=this.__data__,r=de(n,t);return r<0?(++this.size,n.push([t,e])):n[r][1]=e,this}function Xt(t){var e=-1,n=null==t?0:t.length;for(this.clear();++e<n;){var r=t[e];this.set(r[0],r[1])}}function Yt(){this.size=0,this.__data__={hash:new Nt,map:new(zt||Ht),string:new Nt}}function Zt(t){var e=Oe(this,t).delete(t);return this.size-=e?1:0,e}function te(t){return Oe(this,t).get(t)}function ee(t){return Oe(this,t).has(t)}function ne(t,e){var n=Oe(this,t),r=n.size;return n.set(t,e),this.size+=n.size==r?0:1,this}function re(t){var e=-1,n=null==t?0:t.length;for(this.__data__=new Xt;++e<n;)this.add(t[e])}function ie(t){return this.__data__.set(t,r),this}function oe(t){return this.__data__.has(t)}function se(t){var e=this.__data__=new Ht(t);this.size=e.size}function ae(){this.__data__=new Ht,this.size=0}function ce(t){var e=this.__data__,n=e.delete(t);return this.size=e.size,n}function ue(t){return this.__data__.get(t)}function le(t){return this.__data__.has(t)}function he(t,e){var r=this.__data__;if(r instanceof Ht){var i=r.__data__;if(!zt||i.length<n-1)return i.push([t,e]),this.size=++r.size,this;r=this.__data__=new Xt(i)}return r.set(t,e),this.size=r.size,this}function fe(t,e){var n=Ne(t),r=!n&&Fe(t),i=!n&&!r&&Ve(t),o=!n&&!r&&!i&&Ge(t),s=n||r||i||o,a=s?tt(t.length,String):[],c=a.length;for(var u in t)!e&&!dt.call(t,u)||s&&("length"==u||i&&("offset"==u||"parent"==u)||o&&("buffer"==u||"byteLength"==u||"byteOffset"==u)||Me(u,c))||a.push(u);return a}function de(t,e){for(var n=t.length;n--;)if(Pe(t[n][0],e))return n;return-1}function _e(t,e,n){var r=e(t);return Ne(t)?r:Y(r,n(t))}function pe(t){return null==t?void 0===t?O:b:Et&&Et in Object(t)?Le(t):Ue(t)}function me(t){return qe(t)&&pe(t)==a}function ve(t,e,n,r,i){return t===e||(null==t||null==e||!qe(t)&&!qe(e)?t!=t&&e!=e:be(t,e,n,r,ve,i))}function be(t,e,n,r,o,s){var u=Ne(t),l=Ne(e),h=u?c:Te(t),f=l?c:Te(e),d=(h=h==a?y:h)==y,_=(f=f==a?y:f)==y,p=h==f;if(p&&Ve(t)){if(!Ve(e))return!1;u=!0,d=!1}if(p&&!d)return s||(s=new se),u||Ge(t)?Ee(t,e,n,r,o,s):je(t,e,h,n,r,o,s);if(!(n&i)){var m=d&&dt.call(t,"__wrapped__"),v=_&&dt.call(e,"__wrapped__");if(m||v){var b=m?t.value():t,g=v?e.value():e;return s||(s=new se),o(b,g,n,r,s)}}return!!p&&(s||(s=new se),xe(t,e,n,r,o,s))}function ye(t){return!(!He(t)||ke(t))&&(De(t)?mt:N).test(Ie(t))}function ge(t){return qe(t)&&We(t.length)&&!!V[pe(t)]}function we(t){if(!$e(t))return At(t);var e=[];for(var n in Object(t))dt.call(t,n)&&"constructor"!=n&&e.push(n);return e}function Ee(t,e,n,r,s,a){var c=n&i,u=t.length,l=e.length;if(u!=l&&!(c&&l>u))return!1;var h=a.get(t);if(h&&a.get(e))return h==e;var f=-1,d=!0,_=n&o?new re:void 0;for(a.set(t,e),a.set(e,t);++f<u;){var p=t[f],m=e[f];if(r)var v=c?r(m,p,f,e,t,a):r(p,m,f,t,e,a);if(void 0!==v){if(v)continue;d=!1;break}if(_){if(!Z(e,(function(t,e){if(!nt(_,e)&&(p===t||s(p,t,n,r,a)))return _.push(e)}))){d=!1;break}}else if(p!==m&&!s(p,m,n,r,a)){d=!1;break}}return a.delete(t),a.delete(e),d}function je(t,e,n,r,s,a,c){switch(n){case S:if(t.byteLength!=e.byteLength||t.byteOffset!=e.byteOffset)return!1;t=t.buffer,e=e.buffer;case L:return!(t.byteLength!=e.byteLength||!a(new yt(t),new yt(e)));case l:case h:case v:return Pe(+t,+e);case d:return t.name==e.name&&t.message==e.message;case E:case x:return t==e+"";case m:var u=it;case j:var f=r&i;if(u||(u=st),t.size!=e.size&&!f)return!1;var _=c.get(t);if(_)return _==e;r|=o,c.set(t,e);var p=Ee(u(t),u(e),r,s,a,c);return c.delete(t),p;case A:if(Ft)return Ft.call(t)==Ft.call(e)}return!1}function xe(t,e,n,r,o,s){var a=n&i,c=Ae(t),u=c.length;if(u!=Ae(e).length&&!a)return!1;for(var l=u;l--;){var h=c[l];if(!(a?h in e:dt.call(e,h)))return!1}var f=s.get(t);if(f&&s.get(e))return f==e;var d=!0;s.set(t,e),s.set(e,t);for(var _=a;++l<u;){var p=t[h=c[l]],m=e[h];if(r)var v=a?r(m,p,h,e,t,s):r(p,m,h,t,e,s);if(!(void 0===v?p===m||o(p,m,n,r,s):v)){d=!1;break}_||(_="constructor"==h)}if(d&&!_){var b=t.constructor,y=e.constructor;b==y||!("constructor"in t)||!("constructor"in e)||"function"==typeof b&&b instanceof b&&"function"==typeof y&&y instanceof y||(d=!1)}return s.delete(t),s.delete(e),d}function Ae(t){return _e(t,Je,Se)}function Oe(t,e){var n=t.__data__;return Ce(e)?n["string"==typeof e?"string":"hash"]:n.map}function ze(t,e){var n=rt(t,e);return ye(n)?n:void 0}function Le(t){var e=dt.call(t,Et),n=t[Et];try{t[Et]=void 0;var r=!0}catch(t){}var i=pt.call(t);return r&&(e?t[Et]=n:delete t[Et]),i}Nt.prototype.clear=Rt,Nt.prototype.delete=Vt,Nt.prototype.get=Bt,Nt.prototype.has=Dt,Nt.prototype.set=Wt,Ht.prototype.clear=qt,Ht.prototype.delete=Gt,Ht.prototype.get=Jt,Ht.prototype.has=Kt,Ht.prototype.set=Qt,Xt.prototype.clear=Yt,Xt.prototype.delete=Zt,Xt.prototype.get=te,Xt.prototype.has=ee,Xt.prototype.set=ne,re.prototype.add=re.prototype.push=ie,re.prototype.has=oe,se.prototype.clear=ae,se.prototype.delete=ce,se.prototype.get=ue,se.prototype.has=le,se.prototype.set=he;var Se=jt?function(t){return null==t?[]:(t=Object(t),X(jt(t),(function(e){return gt.call(t,e)})))}:Ke,Te=pe;function Me(t,e){return!!(e=null==e?s:e)&&("number"==typeof t||R.test(t))&&t>-1&&t%1==0&&t<e}function Ce(t){var e=typeof t;return"string"==e||"number"==e||"symbol"==e||"boolean"==e?"__proto__"!==t:null===t}function ke(t){return!!_t&&_t in t}function $e(t){var e=t&&t.constructor;return t===("function"==typeof e&&e.prototype||lt)}function Ue(t){return pt.call(t)}function Ie(t){if(null!=t){try{return ft.call(t)}catch(t){}try{return t+""}catch(t){}}return""}function Pe(t,e){return t===e||t!=t&&e!=e}(Ot&&Te(new Ot(new ArrayBuffer(1)))!=S||zt&&Te(new zt)!=m||Lt&&Te(Lt.resolve())!=g||St&&Te(new St)!=j||Tt&&Te(new Tt)!=z)&&(Te=function(t){var e=pe(t),n=e==y?t.constructor:void 0,r=n?Ie(n):"";if(r)switch(r){case Ct:return S;case kt:return m;case $t:return g;case Ut:return j;case It:return z}return e});var Fe=me(function(){return arguments}())?me:function(t){return qe(t)&&dt.call(t,"callee")&&!gt.call(t,"callee")},Ne=Array.isArray;function Re(t){return null!=t&&We(t.length)&&!De(t)}var Ve=xt||Qe;function Be(t,e){return ve(t,e)}function De(t){if(!He(t))return!1;var e=pe(t);return e==_||e==p||e==u||e==w}function We(t){return"number"==typeof t&&t>-1&&t%1==0&&t<=s}function He(t){var e=typeof t;return null!=t&&("object"==e||"function"==e)}function qe(t){return null!=t&&"object"==typeof t}var Ge=Q?et(Q):ge;function Je(t){return Re(t)?fe(t):we(t)}function Ke(){return[]}function Qe(){return!1}t.exports=Be}));class p{_parentElement;_childrenElements=new Set;$parent;$children=new Set;_anchor;_conditional;_activeElement;_vars=[];_reactiveVars=[];_updateListeners=[];constructor(t,e){this._anchor=document.createTextNode(""),this._conditional=e,this._reactiveVars=t}async update(){let t=await this._conditional(this._vars);null!=t&&null==this._activeElement?(await t.mount(this._anchor,!0),await t.set_parent(this),this._activeElement=t):null==t&&null==t&&void 0!==this._activeElement&&(this._activeElement.destroy(),this._activeElement=void 0)}set_parent(t){this._parentElement=t}remove_child(){}async mount(t,e=!1){t.appendChild(this._anchor);for(let t in this._reactiveVars)this._vars[t]=this._reactiveVars[t].get(),this._updateListeners.push(this._reactiveVars[t].subscribe(((e,n)=>{this._vars[t]=e,this.update()}).bind(this)));await this.update()}async destroy(){for(let t in this._updateListeners)this._updateListeners[t]();this._anchor.remove(),this._activeElement&&this._activeElement.destroy(),this._parentElement&&this._parentElement.remove_child(this)}}function m(t){for(var e="",n="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",r=n.length,i=0;i<t;i++)e+=n.charAt(Math.floor(Math.random()*r));return e}function v(t){let e,n=new Set,r=t;function i(t){if(!_(t,r)){for(const e of n)e(t,r);e=r,r=t}}function o(t){return n.add(t),()=>{n.delete(t)}}function s(){return r}function a(){return e}return{id:m(5),set:i,subscribe:o,get:s,get_last:a}}function b(){return document.createTextNode("")}function y(t={}){return{name:"cosmos",transform:(t,e)=>t}}e.Compiler=y,e.Component=n,e.Conditional=p,e.Element=h,e.anchor=b,e.beforeMount=s,e.beforeUnmount=c,e.get_current_component=o,e.makeid=m,e.onMount=a,e.onRender=l,e.onUnmount=u,e.set_current_component=i,e.variable=v,Object.defineProperty(e,"__esModule",{value:!0})}(n)},e(n={exports:{}},n.exports),n.exports);class i extends r.Component{instance(){let t=r.variable(0),e=100;t.set(e++),setInterval((()=>{t.set(e++)}),1e3),r.onMount((()=>{console.log("Mounted")})),r.onRender((()=>this.createElement("div",null,this.createElement("div",null,"This is inside a nested component."),t," ",this.createElement("br",null),t," ",this.createElement("br",null))))}}class o extends r.Component{async instance(){let t=r.variable(1),e=r.variable("color: blue;");r.variable(this.createElement("p",null,"Test2")),setInterval((()=>{t.set(t.get()+1)}),1e3),t.subscribe(((t,n)=>{t>10&&e.get()!==e.get_last()&&e.set("color: green")})),r.onMount((()=>{console.log("Mounted")})),r.onRender((()=>{let e=r.variable("\n\t\t\t\t* {\n\t\t\t\t\tbox-sizing: border-box;\n\t\t\t\t\tletter-spacing: -0.05em !important;\n\t\t\t\t}\n\t\t\t\t\n\t\t\t\t#app {\n\t\t\t\t\tmin-height: 100vh;\n\t\t\t\t\tmargin:0;\n\t\t\t\t\twidth:100%;\n\t\t\t\t}\n\n\t\t\t\tbody {\n\t\t\t\t\tmargin: 0;\n\t\t\t\t}\n\n\t\t\t\tblockquote, dd, dl, figure, h1, h2, h3, h4, h5, h6, hr, p, pre {\n\t\t\t\t\tmargin: 0;\n\t\t\t\t}\n\t\t\t\t\n\t\t\t\tbody {\n\t\t\t\t\tfont-family: 'Inter', sans-serif;\n\t\t\t\t\tpadding: 0;\n\t\t\t\t\toverflow: hidden;\n\t\t\t\t\tposition: fixed;\n\t\t\t\t\tmargin: 0;\n\t\t\t\t\tmin-height: 100vh;\n\t\t\t\t}\n\n\t\t\t\thtml, body {\n\t\t\t\t\twidth:100%;\n\t\t\t\t}\n\n\t\t\t\t.test {\n\t\t\t\t\tcolor: green;\n\t\t\t\t}\n\t\t\t");return this.createElement("div",{id:"app",style:"text-align:center;"},this.createElement("style",null,e),this.createElement("div",{style:"width:100%;text-align:center;height:50px;text-align:center;box-shadow: 0px 0px 18px 3px rgba(0,0,0,0.55);margin-bottom:20px;"},this.createElement("p",{style:"height:100%;"},"Header")),this.createElement("h1",{onClick:function(){alert("Test")}},"Click me!"),this.createElement("h2",{class:"test"},"Test ",t,"... ",this.createElement("span",null,t)),t," ",this.createElement("br",null),this.condition([t],(e=>{if(e[0]>=0&&e[0]<=2e4)return this.createElement("h1",null,"Reactivity Test ",t,this.condition([t],(t=>{if(t[0]>=100&&t[0]<=200||t[0]>=400&&t[0]<=600)return this.createElement(i,null)})),this.createElement("br",null))})),t," ",this.createElement("br",null),t," ",this.createElement("br",null),t," ",this.createElement("br",null),t," ",this.createElement("br",null),t," ",this.createElement("br",null))}))}}new o({mount:document.body,props:{bruh:"moment"}})}();
+
+(function(l, r) { if (!l || l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (self.location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.getElementsByTagName('head')[0].appendChild(r) })(self.document);
+(function () {
+	'use strict';
+
+	var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
+
+	function createCommonjsModule(fn) {
+	  var module = { exports: {} };
+		return fn(module, module.exports), module.exports;
+	}
+
+	var runtime = createCommonjsModule(function (module, exports) {
+	(function (global, factory) {
+		factory(exports) ;
+	}(commonjsGlobal, (function (exports) {
+		class Component {
+			//$ = API method/variable
+			//_ = Internal method/variable
+
+			//Element management
+			_parentElement; //Parent element to this
+			_childrenElements = new Set(); //Child elements
+
+			//Component management
+			$parent; //Parent component
+			$children = new Set(); //Child components
+			$props;
+
+			constructor (options = {}) {
+				//Todo this.mount if is root element
+				if (options.mount !== undefined && !(typeof window === 'undefined')) {
+					options.mount.innerHTML = "";
+					this.mount(options.mount);
+				}
+				if (options.props) this.$props = options.props;
+			}
+
+			set_parent(parent) {
+				this._parentElement = parent;
+			}
+
+			add_child(child) {
+				child.set_parent(this);
+				this._childrenElements.add(child);
+			}
+
+			remove_child(child) {
+				this._childrenElements.delete(child);
+			}
+		 
+			async mount (root, before = false) {
+				this._parentElement = root;
+				this.$parent = get_current_component();
+
+				if (get_current_component()) get_current_component().$children.add(this);
+				set_current_component(this);
+				await this.instance();
+				//Adds component
+				this.add_child(await this.render());
+				if (this.beforeMounted) await this.beforeMounted();
+
+				for (let child of this._childrenElements) {
+					set_current_component(this);
+					if (before) await child.mount(root, before);
+					else await child.mount(root);
+				}
+				if (this.mounted) await this.mounted();
+			}
+
+			async destroy () {
+				if (this.beforeUnmount) await this.beforeUnmount();
+				if (this._parentElement && this._parentElement.remove_child) this._parentElement.remove_child(this);
+
+				for (let child of this._childrenElements) await child.destroy();
+				if (this.unmounted) await this.unmounted();
+			}
+
+			createElement (type, attrs = {}, ...children) {
+				children = children.filter((child) => child !== false);
+				if (attrs == null) attrs = {};
+
+				if (typeof type == "string") {
+					//Creates element
+					let element = new Element(type, [], attrs);
+
+					//Adds children to element
+					for (const [key, value] of Object.entries(children)) { 
+						if (typeof value == "object" && value.subscribe == undefined) {
+							element.add_child(value);
+						} else {
+							element.add_child(new Element("#text", [value], attrs));
+						}
+					}
+					
+
+					return element;
+				} else {
+
+					//Initializes component
+					return new type({
+						props: attrs
+					});
+				}
+			}
+
+			//Todo reimplement with new code formatting
+			condition(vars, cb) {
+				return new Conditional(vars, cb);
+			}
+
+			foreach (array, cb) {
+				return new For(array, cb);
+			}
+		}
+
+		let current_component;
+
+		function set_current_component (component) {
+			current_component = component;
+		}
+
+		function get_current_component () {
+			return current_component;
+		}
+
+		function beforeMount (fn) {
+			get_current_component().beforeMounted = fn;
+		}
+
+		function onMount (fn) {
+			get_current_component().mounted = fn;
+		}
+
+		function beforeUnmount (fn) {
+			get_current_component().beforeUnmount = fn;
+		}
+
+		function onDestroy (fn) {
+			get_current_component().unmounted = fn;
+		}
+
+		function onRender (fn) {
+			get_current_component().render = fn;
+		}
+
+		class Element {
+
+			//$ = API method/variable
+			//_ = Internal method/variable
+
+			//Element management
+			_parentElement; //Parent element to this
+			_childrenElements = new Set(); //Child elements
+
+			//Component management
+			$parent; //Parent component
+			$children = new Set(); //Child components
+
+			_element;
+			_attrs;
+			_updateListeners = new Set();
+
+			_eventListeners = [];
+
+			constructor(element, children, attrs = {}) {
+				//create element
+				if (element == "#text") {
+					if (children[0].subscribe !== undefined) {
+						this._element = document.createTextNode(children[0].get());
+
+						this._updateListeners.add(children[0].subscribe((new_val, old_val) => {
+							this._element.textContent = new_val;
+						}));
+					} else {
+						this._element = document.createTextNode(children[0]);
+					}
+				} else {
+					this._element = document.createElement(element);
+
+					for (const [key, child] of Object.entries(children)) {
+						this.add_child(child);
+					}
+
+					this.set_attributes(attrs);
+				}
+			}
+
+			set_attributes (attrs) {
+				for (let [key, value] of Object.entries(attrs)) {
+					if (key.startsWith("on") && typeof value == "function") {
+						this._element.addEventListener(key.replace('on', '').toLowerCase(), value);
+						this._eventListeners.push({fn: value, e: key.replace('on', '').toLowerCase()});
+					} else {
+						if (value.subscribe !== undefined) {
+							this._element.setAttribute(key, value.get());
+							this._updateListeners.add(value.subscribe(((new_val, old_val) => {
+								this._element.setAttribute(key, new_val);
+							})).bind(this));
+						} else {
+							this._element.setAttribute(key, value);
+						}
+					}
+				}
+			}
+
+			set_parent(parent) {
+				this._parentElement = parent;
+			}
+
+			add_child(child) {
+				child.set_parent(this);
+				this._childrenElements.add(child);
+			}
+
+			remove_child(child) {
+				this._childrenElements.delete(child);
+			}
+
+			async mount (root, before = false) {
+				//console.log(root);
+				if (before) root.parentNode.insertBefore(this._element, root);
+				else root.appendChild(this._element);
+
+				//Appends mount's children
+				for (let child of this._childrenElements) {
+					await child.mount(this._element);
+				}
+			}
+
+			async destroy () {
+				for (let r of this._updateListeners) r();
+				for (let r of this._eventListeners) this._element.removeEventListener(r.e, r.fn);
+				this._element.remove();
+				if (this._parentElement) this._parentElement.remove_child(this);
+
+				for (let child of this._childrenElements) {
+					await child.destroy();
+				}
+			}
+		}
+
+		var commonjsGlobal$1 = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof commonjsGlobal !== 'undefined' ? commonjsGlobal : typeof self !== 'undefined' ? self : {};
+
+		function createCommonjsModule(fn, module) {
+			return module = { exports: {} }, fn(module, module.exports), module.exports;
+		}
+
+		var lodash_isequal = createCommonjsModule(function (module, exports) {
+		/**
+		 * Lodash (Custom Build) <https://lodash.com/>
+		 * Build: `lodash modularize exports="npm" -o ./`
+		 * Copyright JS Foundation and other contributors <https://js.foundation/>
+		 * Released under MIT license <https://lodash.com/license>
+		 * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
+		 * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+		 */
+
+		/** Used as the size to enable large array optimizations. */
+		var LARGE_ARRAY_SIZE = 200;
+
+		/** Used to stand-in for `undefined` hash values. */
+		var HASH_UNDEFINED = '__lodash_hash_undefined__';
+
+		/** Used to compose bitmasks for value comparisons. */
+		var COMPARE_PARTIAL_FLAG = 1,
+		    COMPARE_UNORDERED_FLAG = 2;
+
+		/** Used as references for various `Number` constants. */
+		var MAX_SAFE_INTEGER = 9007199254740991;
+
+		/** `Object#toString` result references. */
+		var argsTag = '[object Arguments]',
+		    arrayTag = '[object Array]',
+		    asyncTag = '[object AsyncFunction]',
+		    boolTag = '[object Boolean]',
+		    dateTag = '[object Date]',
+		    errorTag = '[object Error]',
+		    funcTag = '[object Function]',
+		    genTag = '[object GeneratorFunction]',
+		    mapTag = '[object Map]',
+		    numberTag = '[object Number]',
+		    nullTag = '[object Null]',
+		    objectTag = '[object Object]',
+		    promiseTag = '[object Promise]',
+		    proxyTag = '[object Proxy]',
+		    regexpTag = '[object RegExp]',
+		    setTag = '[object Set]',
+		    stringTag = '[object String]',
+		    symbolTag = '[object Symbol]',
+		    undefinedTag = '[object Undefined]',
+		    weakMapTag = '[object WeakMap]';
+
+		var arrayBufferTag = '[object ArrayBuffer]',
+		    dataViewTag = '[object DataView]',
+		    float32Tag = '[object Float32Array]',
+		    float64Tag = '[object Float64Array]',
+		    int8Tag = '[object Int8Array]',
+		    int16Tag = '[object Int16Array]',
+		    int32Tag = '[object Int32Array]',
+		    uint8Tag = '[object Uint8Array]',
+		    uint8ClampedTag = '[object Uint8ClampedArray]',
+		    uint16Tag = '[object Uint16Array]',
+		    uint32Tag = '[object Uint32Array]';
+
+		/**
+		 * Used to match `RegExp`
+		 * [syntax characters](http://ecma-international.org/ecma-262/7.0/#sec-patterns).
+		 */
+		var reRegExpChar = /[\\^$.*+?()[\]{}|]/g;
+
+		/** Used to detect host constructors (Safari). */
+		var reIsHostCtor = /^\[object .+?Constructor\]$/;
+
+		/** Used to detect unsigned integer values. */
+		var reIsUint = /^(?:0|[1-9]\d*)$/;
+
+		/** Used to identify `toStringTag` values of typed arrays. */
+		var typedArrayTags = {};
+		typedArrayTags[float32Tag] = typedArrayTags[float64Tag] =
+		typedArrayTags[int8Tag] = typedArrayTags[int16Tag] =
+		typedArrayTags[int32Tag] = typedArrayTags[uint8Tag] =
+		typedArrayTags[uint8ClampedTag] = typedArrayTags[uint16Tag] =
+		typedArrayTags[uint32Tag] = true;
+		typedArrayTags[argsTag] = typedArrayTags[arrayTag] =
+		typedArrayTags[arrayBufferTag] = typedArrayTags[boolTag] =
+		typedArrayTags[dataViewTag] = typedArrayTags[dateTag] =
+		typedArrayTags[errorTag] = typedArrayTags[funcTag] =
+		typedArrayTags[mapTag] = typedArrayTags[numberTag] =
+		typedArrayTags[objectTag] = typedArrayTags[regexpTag] =
+		typedArrayTags[setTag] = typedArrayTags[stringTag] =
+		typedArrayTags[weakMapTag] = false;
+
+		/** Detect free variable `global` from Node.js. */
+		var freeGlobal = typeof commonjsGlobal$1 == 'object' && commonjsGlobal$1 && commonjsGlobal$1.Object === Object && commonjsGlobal$1;
+
+		/** Detect free variable `self`. */
+		var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
+
+		/** Used as a reference to the global object. */
+		var root = freeGlobal || freeSelf || Function('return this')();
+
+		/** Detect free variable `exports`. */
+		var freeExports = exports && !exports.nodeType && exports;
+
+		/** Detect free variable `module`. */
+		var freeModule = freeExports && 'object' == 'object' && module && !module.nodeType && module;
+
+		/** Detect the popular CommonJS extension `module.exports`. */
+		var moduleExports = freeModule && freeModule.exports === freeExports;
+
+		/** Detect free variable `process` from Node.js. */
+		var freeProcess = moduleExports && freeGlobal.process;
+
+		/** Used to access faster Node.js helpers. */
+		var nodeUtil = (function() {
+		  try {
+		    return freeProcess && freeProcess.binding && freeProcess.binding('util');
+		  } catch (e) {}
+		}());
+
+		/* Node.js helper references. */
+		var nodeIsTypedArray = nodeUtil && nodeUtil.isTypedArray;
+
+		/**
+		 * A specialized version of `_.filter` for arrays without support for
+		 * iteratee shorthands.
+		 *
+		 * @private
+		 * @param {Array} [array] The array to iterate over.
+		 * @param {Function} predicate The function invoked per iteration.
+		 * @returns {Array} Returns the new filtered array.
+		 */
+		function arrayFilter(array, predicate) {
+		  var index = -1,
+		      length = array == null ? 0 : array.length,
+		      resIndex = 0,
+		      result = [];
+
+		  while (++index < length) {
+		    var value = array[index];
+		    if (predicate(value, index, array)) {
+		      result[resIndex++] = value;
+		    }
+		  }
+		  return result;
+		}
+
+		/**
+		 * Appends the elements of `values` to `array`.
+		 *
+		 * @private
+		 * @param {Array} array The array to modify.
+		 * @param {Array} values The values to append.
+		 * @returns {Array} Returns `array`.
+		 */
+		function arrayPush(array, values) {
+		  var index = -1,
+		      length = values.length,
+		      offset = array.length;
+
+		  while (++index < length) {
+		    array[offset + index] = values[index];
+		  }
+		  return array;
+		}
+
+		/**
+		 * A specialized version of `_.some` for arrays without support for iteratee
+		 * shorthands.
+		 *
+		 * @private
+		 * @param {Array} [array] The array to iterate over.
+		 * @param {Function} predicate The function invoked per iteration.
+		 * @returns {boolean} Returns `true` if any element passes the predicate check,
+		 *  else `false`.
+		 */
+		function arraySome(array, predicate) {
+		  var index = -1,
+		      length = array == null ? 0 : array.length;
+
+		  while (++index < length) {
+		    if (predicate(array[index], index, array)) {
+		      return true;
+		    }
+		  }
+		  return false;
+		}
+
+		/**
+		 * The base implementation of `_.times` without support for iteratee shorthands
+		 * or max array length checks.
+		 *
+		 * @private
+		 * @param {number} n The number of times to invoke `iteratee`.
+		 * @param {Function} iteratee The function invoked per iteration.
+		 * @returns {Array} Returns the array of results.
+		 */
+		function baseTimes(n, iteratee) {
+		  var index = -1,
+		      result = Array(n);
+
+		  while (++index < n) {
+		    result[index] = iteratee(index);
+		  }
+		  return result;
+		}
+
+		/**
+		 * The base implementation of `_.unary` without support for storing metadata.
+		 *
+		 * @private
+		 * @param {Function} func The function to cap arguments for.
+		 * @returns {Function} Returns the new capped function.
+		 */
+		function baseUnary(func) {
+		  return function(value) {
+		    return func(value);
+		  };
+		}
+
+		/**
+		 * Checks if a `cache` value for `key` exists.
+		 *
+		 * @private
+		 * @param {Object} cache The cache to query.
+		 * @param {string} key The key of the entry to check.
+		 * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+		 */
+		function cacheHas(cache, key) {
+		  return cache.has(key);
+		}
+
+		/**
+		 * Gets the value at `key` of `object`.
+		 *
+		 * @private
+		 * @param {Object} [object] The object to query.
+		 * @param {string} key The key of the property to get.
+		 * @returns {*} Returns the property value.
+		 */
+		function getValue(object, key) {
+		  return object == null ? undefined : object[key];
+		}
+
+		/**
+		 * Converts `map` to its key-value pairs.
+		 *
+		 * @private
+		 * @param {Object} map The map to convert.
+		 * @returns {Array} Returns the key-value pairs.
+		 */
+		function mapToArray(map) {
+		  var index = -1,
+		      result = Array(map.size);
+
+		  map.forEach(function(value, key) {
+		    result[++index] = [key, value];
+		  });
+		  return result;
+		}
+
+		/**
+		 * Creates a unary function that invokes `func` with its argument transformed.
+		 *
+		 * @private
+		 * @param {Function} func The function to wrap.
+		 * @param {Function} transform The argument transform.
+		 * @returns {Function} Returns the new function.
+		 */
+		function overArg(func, transform) {
+		  return function(arg) {
+		    return func(transform(arg));
+		  };
+		}
+
+		/**
+		 * Converts `set` to an array of its values.
+		 *
+		 * @private
+		 * @param {Object} set The set to convert.
+		 * @returns {Array} Returns the values.
+		 */
+		function setToArray(set) {
+		  var index = -1,
+		      result = Array(set.size);
+
+		  set.forEach(function(value) {
+		    result[++index] = value;
+		  });
+		  return result;
+		}
+
+		/** Used for built-in method references. */
+		var arrayProto = Array.prototype,
+		    funcProto = Function.prototype,
+		    objectProto = Object.prototype;
+
+		/** Used to detect overreaching core-js shims. */
+		var coreJsData = root['__core-js_shared__'];
+
+		/** Used to resolve the decompiled source of functions. */
+		var funcToString = funcProto.toString;
+
+		/** Used to check objects for own properties. */
+		var hasOwnProperty = objectProto.hasOwnProperty;
+
+		/** Used to detect methods masquerading as native. */
+		var maskSrcKey = (function() {
+		  var uid = /[^.]+$/.exec(coreJsData && coreJsData.keys && coreJsData.keys.IE_PROTO || '');
+		  return uid ? ('Symbol(src)_1.' + uid) : '';
+		}());
+
+		/**
+		 * Used to resolve the
+		 * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
+		 * of values.
+		 */
+		var nativeObjectToString = objectProto.toString;
+
+		/** Used to detect if a method is native. */
+		var reIsNative = RegExp('^' +
+		  funcToString.call(hasOwnProperty).replace(reRegExpChar, '\\$&')
+		  .replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?') + '$'
+		);
+
+		/** Built-in value references. */
+		var Buffer = moduleExports ? root.Buffer : undefined,
+		    Symbol = root.Symbol,
+		    Uint8Array = root.Uint8Array,
+		    propertyIsEnumerable = objectProto.propertyIsEnumerable,
+		    splice = arrayProto.splice,
+		    symToStringTag = Symbol ? Symbol.toStringTag : undefined;
+
+		/* Built-in method references for those with the same name as other `lodash` methods. */
+		var nativeGetSymbols = Object.getOwnPropertySymbols,
+		    nativeIsBuffer = Buffer ? Buffer.isBuffer : undefined,
+		    nativeKeys = overArg(Object.keys, Object);
+
+		/* Built-in method references that are verified to be native. */
+		var DataView = getNative(root, 'DataView'),
+		    Map = getNative(root, 'Map'),
+		    Promise = getNative(root, 'Promise'),
+		    Set = getNative(root, 'Set'),
+		    WeakMap = getNative(root, 'WeakMap'),
+		    nativeCreate = getNative(Object, 'create');
+
+		/** Used to detect maps, sets, and weakmaps. */
+		var dataViewCtorString = toSource(DataView),
+		    mapCtorString = toSource(Map),
+		    promiseCtorString = toSource(Promise),
+		    setCtorString = toSource(Set),
+		    weakMapCtorString = toSource(WeakMap);
+
+		/** Used to convert symbols to primitives and strings. */
+		var symbolProto = Symbol ? Symbol.prototype : undefined,
+		    symbolValueOf = symbolProto ? symbolProto.valueOf : undefined;
+
+		/**
+		 * Creates a hash object.
+		 *
+		 * @private
+		 * @constructor
+		 * @param {Array} [entries] The key-value pairs to cache.
+		 */
+		function Hash(entries) {
+		  var index = -1,
+		      length = entries == null ? 0 : entries.length;
+
+		  this.clear();
+		  while (++index < length) {
+		    var entry = entries[index];
+		    this.set(entry[0], entry[1]);
+		  }
+		}
+
+		/**
+		 * Removes all key-value entries from the hash.
+		 *
+		 * @private
+		 * @name clear
+		 * @memberOf Hash
+		 */
+		function hashClear() {
+		  this.__data__ = nativeCreate ? nativeCreate(null) : {};
+		  this.size = 0;
+		}
+
+		/**
+		 * Removes `key` and its value from the hash.
+		 *
+		 * @private
+		 * @name delete
+		 * @memberOf Hash
+		 * @param {Object} hash The hash to modify.
+		 * @param {string} key The key of the value to remove.
+		 * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+		 */
+		function hashDelete(key) {
+		  var result = this.has(key) && delete this.__data__[key];
+		  this.size -= result ? 1 : 0;
+		  return result;
+		}
+
+		/**
+		 * Gets the hash value for `key`.
+		 *
+		 * @private
+		 * @name get
+		 * @memberOf Hash
+		 * @param {string} key The key of the value to get.
+		 * @returns {*} Returns the entry value.
+		 */
+		function hashGet(key) {
+		  var data = this.__data__;
+		  if (nativeCreate) {
+		    var result = data[key];
+		    return result === HASH_UNDEFINED ? undefined : result;
+		  }
+		  return hasOwnProperty.call(data, key) ? data[key] : undefined;
+		}
+
+		/**
+		 * Checks if a hash value for `key` exists.
+		 *
+		 * @private
+		 * @name has
+		 * @memberOf Hash
+		 * @param {string} key The key of the entry to check.
+		 * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+		 */
+		function hashHas(key) {
+		  var data = this.__data__;
+		  return nativeCreate ? (data[key] !== undefined) : hasOwnProperty.call(data, key);
+		}
+
+		/**
+		 * Sets the hash `key` to `value`.
+		 *
+		 * @private
+		 * @name set
+		 * @memberOf Hash
+		 * @param {string} key The key of the value to set.
+		 * @param {*} value The value to set.
+		 * @returns {Object} Returns the hash instance.
+		 */
+		function hashSet(key, value) {
+		  var data = this.__data__;
+		  this.size += this.has(key) ? 0 : 1;
+		  data[key] = (nativeCreate && value === undefined) ? HASH_UNDEFINED : value;
+		  return this;
+		}
+
+		// Add methods to `Hash`.
+		Hash.prototype.clear = hashClear;
+		Hash.prototype['delete'] = hashDelete;
+		Hash.prototype.get = hashGet;
+		Hash.prototype.has = hashHas;
+		Hash.prototype.set = hashSet;
+
+		/**
+		 * Creates an list cache object.
+		 *
+		 * @private
+		 * @constructor
+		 * @param {Array} [entries] The key-value pairs to cache.
+		 */
+		function ListCache(entries) {
+		  var index = -1,
+		      length = entries == null ? 0 : entries.length;
+
+		  this.clear();
+		  while (++index < length) {
+		    var entry = entries[index];
+		    this.set(entry[0], entry[1]);
+		  }
+		}
+
+		/**
+		 * Removes all key-value entries from the list cache.
+		 *
+		 * @private
+		 * @name clear
+		 * @memberOf ListCache
+		 */
+		function listCacheClear() {
+		  this.__data__ = [];
+		  this.size = 0;
+		}
+
+		/**
+		 * Removes `key` and its value from the list cache.
+		 *
+		 * @private
+		 * @name delete
+		 * @memberOf ListCache
+		 * @param {string} key The key of the value to remove.
+		 * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+		 */
+		function listCacheDelete(key) {
+		  var data = this.__data__,
+		      index = assocIndexOf(data, key);
+
+		  if (index < 0) {
+		    return false;
+		  }
+		  var lastIndex = data.length - 1;
+		  if (index == lastIndex) {
+		    data.pop();
+		  } else {
+		    splice.call(data, index, 1);
+		  }
+		  --this.size;
+		  return true;
+		}
+
+		/**
+		 * Gets the list cache value for `key`.
+		 *
+		 * @private
+		 * @name get
+		 * @memberOf ListCache
+		 * @param {string} key The key of the value to get.
+		 * @returns {*} Returns the entry value.
+		 */
+		function listCacheGet(key) {
+		  var data = this.__data__,
+		      index = assocIndexOf(data, key);
+
+		  return index < 0 ? undefined : data[index][1];
+		}
+
+		/**
+		 * Checks if a list cache value for `key` exists.
+		 *
+		 * @private
+		 * @name has
+		 * @memberOf ListCache
+		 * @param {string} key The key of the entry to check.
+		 * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+		 */
+		function listCacheHas(key) {
+		  return assocIndexOf(this.__data__, key) > -1;
+		}
+
+		/**
+		 * Sets the list cache `key` to `value`.
+		 *
+		 * @private
+		 * @name set
+		 * @memberOf ListCache
+		 * @param {string} key The key of the value to set.
+		 * @param {*} value The value to set.
+		 * @returns {Object} Returns the list cache instance.
+		 */
+		function listCacheSet(key, value) {
+		  var data = this.__data__,
+		      index = assocIndexOf(data, key);
+
+		  if (index < 0) {
+		    ++this.size;
+		    data.push([key, value]);
+		  } else {
+		    data[index][1] = value;
+		  }
+		  return this;
+		}
+
+		// Add methods to `ListCache`.
+		ListCache.prototype.clear = listCacheClear;
+		ListCache.prototype['delete'] = listCacheDelete;
+		ListCache.prototype.get = listCacheGet;
+		ListCache.prototype.has = listCacheHas;
+		ListCache.prototype.set = listCacheSet;
+
+		/**
+		 * Creates a map cache object to store key-value pairs.
+		 *
+		 * @private
+		 * @constructor
+		 * @param {Array} [entries] The key-value pairs to cache.
+		 */
+		function MapCache(entries) {
+		  var index = -1,
+		      length = entries == null ? 0 : entries.length;
+
+		  this.clear();
+		  while (++index < length) {
+		    var entry = entries[index];
+		    this.set(entry[0], entry[1]);
+		  }
+		}
+
+		/**
+		 * Removes all key-value entries from the map.
+		 *
+		 * @private
+		 * @name clear
+		 * @memberOf MapCache
+		 */
+		function mapCacheClear() {
+		  this.size = 0;
+		  this.__data__ = {
+		    'hash': new Hash,
+		    'map': new (Map || ListCache),
+		    'string': new Hash
+		  };
+		}
+
+		/**
+		 * Removes `key` and its value from the map.
+		 *
+		 * @private
+		 * @name delete
+		 * @memberOf MapCache
+		 * @param {string} key The key of the value to remove.
+		 * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+		 */
+		function mapCacheDelete(key) {
+		  var result = getMapData(this, key)['delete'](key);
+		  this.size -= result ? 1 : 0;
+		  return result;
+		}
+
+		/**
+		 * Gets the map value for `key`.
+		 *
+		 * @private
+		 * @name get
+		 * @memberOf MapCache
+		 * @param {string} key The key of the value to get.
+		 * @returns {*} Returns the entry value.
+		 */
+		function mapCacheGet(key) {
+		  return getMapData(this, key).get(key);
+		}
+
+		/**
+		 * Checks if a map value for `key` exists.
+		 *
+		 * @private
+		 * @name has
+		 * @memberOf MapCache
+		 * @param {string} key The key of the entry to check.
+		 * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+		 */
+		function mapCacheHas(key) {
+		  return getMapData(this, key).has(key);
+		}
+
+		/**
+		 * Sets the map `key` to `value`.
+		 *
+		 * @private
+		 * @name set
+		 * @memberOf MapCache
+		 * @param {string} key The key of the value to set.
+		 * @param {*} value The value to set.
+		 * @returns {Object} Returns the map cache instance.
+		 */
+		function mapCacheSet(key, value) {
+		  var data = getMapData(this, key),
+		      size = data.size;
+
+		  data.set(key, value);
+		  this.size += data.size == size ? 0 : 1;
+		  return this;
+		}
+
+		// Add methods to `MapCache`.
+		MapCache.prototype.clear = mapCacheClear;
+		MapCache.prototype['delete'] = mapCacheDelete;
+		MapCache.prototype.get = mapCacheGet;
+		MapCache.prototype.has = mapCacheHas;
+		MapCache.prototype.set = mapCacheSet;
+
+		/**
+		 *
+		 * Creates an array cache object to store unique values.
+		 *
+		 * @private
+		 * @constructor
+		 * @param {Array} [values] The values to cache.
+		 */
+		function SetCache(values) {
+		  var index = -1,
+		      length = values == null ? 0 : values.length;
+
+		  this.__data__ = new MapCache;
+		  while (++index < length) {
+		    this.add(values[index]);
+		  }
+		}
+
+		/**
+		 * Adds `value` to the array cache.
+		 *
+		 * @private
+		 * @name add
+		 * @memberOf SetCache
+		 * @alias push
+		 * @param {*} value The value to cache.
+		 * @returns {Object} Returns the cache instance.
+		 */
+		function setCacheAdd(value) {
+		  this.__data__.set(value, HASH_UNDEFINED);
+		  return this;
+		}
+
+		/**
+		 * Checks if `value` is in the array cache.
+		 *
+		 * @private
+		 * @name has
+		 * @memberOf SetCache
+		 * @param {*} value The value to search for.
+		 * @returns {number} Returns `true` if `value` is found, else `false`.
+		 */
+		function setCacheHas(value) {
+		  return this.__data__.has(value);
+		}
+
+		// Add methods to `SetCache`.
+		SetCache.prototype.add = SetCache.prototype.push = setCacheAdd;
+		SetCache.prototype.has = setCacheHas;
+
+		/**
+		 * Creates a stack cache object to store key-value pairs.
+		 *
+		 * @private
+		 * @constructor
+		 * @param {Array} [entries] The key-value pairs to cache.
+		 */
+		function Stack(entries) {
+		  var data = this.__data__ = new ListCache(entries);
+		  this.size = data.size;
+		}
+
+		/**
+		 * Removes all key-value entries from the stack.
+		 *
+		 * @private
+		 * @name clear
+		 * @memberOf Stack
+		 */
+		function stackClear() {
+		  this.__data__ = new ListCache;
+		  this.size = 0;
+		}
+
+		/**
+		 * Removes `key` and its value from the stack.
+		 *
+		 * @private
+		 * @name delete
+		 * @memberOf Stack
+		 * @param {string} key The key of the value to remove.
+		 * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+		 */
+		function stackDelete(key) {
+		  var data = this.__data__,
+		      result = data['delete'](key);
+
+		  this.size = data.size;
+		  return result;
+		}
+
+		/**
+		 * Gets the stack value for `key`.
+		 *
+		 * @private
+		 * @name get
+		 * @memberOf Stack
+		 * @param {string} key The key of the value to get.
+		 * @returns {*} Returns the entry value.
+		 */
+		function stackGet(key) {
+		  return this.__data__.get(key);
+		}
+
+		/**
+		 * Checks if a stack value for `key` exists.
+		 *
+		 * @private
+		 * @name has
+		 * @memberOf Stack
+		 * @param {string} key The key of the entry to check.
+		 * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+		 */
+		function stackHas(key) {
+		  return this.__data__.has(key);
+		}
+
+		/**
+		 * Sets the stack `key` to `value`.
+		 *
+		 * @private
+		 * @name set
+		 * @memberOf Stack
+		 * @param {string} key The key of the value to set.
+		 * @param {*} value The value to set.
+		 * @returns {Object} Returns the stack cache instance.
+		 */
+		function stackSet(key, value) {
+		  var data = this.__data__;
+		  if (data instanceof ListCache) {
+		    var pairs = data.__data__;
+		    if (!Map || (pairs.length < LARGE_ARRAY_SIZE - 1)) {
+		      pairs.push([key, value]);
+		      this.size = ++data.size;
+		      return this;
+		    }
+		    data = this.__data__ = new MapCache(pairs);
+		  }
+		  data.set(key, value);
+		  this.size = data.size;
+		  return this;
+		}
+
+		// Add methods to `Stack`.
+		Stack.prototype.clear = stackClear;
+		Stack.prototype['delete'] = stackDelete;
+		Stack.prototype.get = stackGet;
+		Stack.prototype.has = stackHas;
+		Stack.prototype.set = stackSet;
+
+		/**
+		 * Creates an array of the enumerable property names of the array-like `value`.
+		 *
+		 * @private
+		 * @param {*} value The value to query.
+		 * @param {boolean} inherited Specify returning inherited property names.
+		 * @returns {Array} Returns the array of property names.
+		 */
+		function arrayLikeKeys(value, inherited) {
+		  var isArr = isArray(value),
+		      isArg = !isArr && isArguments(value),
+		      isBuff = !isArr && !isArg && isBuffer(value),
+		      isType = !isArr && !isArg && !isBuff && isTypedArray(value),
+		      skipIndexes = isArr || isArg || isBuff || isType,
+		      result = skipIndexes ? baseTimes(value.length, String) : [],
+		      length = result.length;
+
+		  for (var key in value) {
+		    if ((inherited || hasOwnProperty.call(value, key)) &&
+		        !(skipIndexes && (
+		           // Safari 9 has enumerable `arguments.length` in strict mode.
+		           key == 'length' ||
+		           // Node.js 0.10 has enumerable non-index properties on buffers.
+		           (isBuff && (key == 'offset' || key == 'parent')) ||
+		           // PhantomJS 2 has enumerable non-index properties on typed arrays.
+		           (isType && (key == 'buffer' || key == 'byteLength' || key == 'byteOffset')) ||
+		           // Skip index properties.
+		           isIndex(key, length)
+		        ))) {
+		      result.push(key);
+		    }
+		  }
+		  return result;
+		}
+
+		/**
+		 * Gets the index at which the `key` is found in `array` of key-value pairs.
+		 *
+		 * @private
+		 * @param {Array} array The array to inspect.
+		 * @param {*} key The key to search for.
+		 * @returns {number} Returns the index of the matched value, else `-1`.
+		 */
+		function assocIndexOf(array, key) {
+		  var length = array.length;
+		  while (length--) {
+		    if (eq(array[length][0], key)) {
+		      return length;
+		    }
+		  }
+		  return -1;
+		}
+
+		/**
+		 * The base implementation of `getAllKeys` and `getAllKeysIn` which uses
+		 * `keysFunc` and `symbolsFunc` to get the enumerable property names and
+		 * symbols of `object`.
+		 *
+		 * @private
+		 * @param {Object} object The object to query.
+		 * @param {Function} keysFunc The function to get the keys of `object`.
+		 * @param {Function} symbolsFunc The function to get the symbols of `object`.
+		 * @returns {Array} Returns the array of property names and symbols.
+		 */
+		function baseGetAllKeys(object, keysFunc, symbolsFunc) {
+		  var result = keysFunc(object);
+		  return isArray(object) ? result : arrayPush(result, symbolsFunc(object));
+		}
+
+		/**
+		 * The base implementation of `getTag` without fallbacks for buggy environments.
+		 *
+		 * @private
+		 * @param {*} value The value to query.
+		 * @returns {string} Returns the `toStringTag`.
+		 */
+		function baseGetTag(value) {
+		  if (value == null) {
+		    return value === undefined ? undefinedTag : nullTag;
+		  }
+		  return (symToStringTag && symToStringTag in Object(value))
+		    ? getRawTag(value)
+		    : objectToString(value);
+		}
+
+		/**
+		 * The base implementation of `_.isArguments`.
+		 *
+		 * @private
+		 * @param {*} value The value to check.
+		 * @returns {boolean} Returns `true` if `value` is an `arguments` object,
+		 */
+		function baseIsArguments(value) {
+		  return isObjectLike(value) && baseGetTag(value) == argsTag;
+		}
+
+		/**
+		 * The base implementation of `_.isEqual` which supports partial comparisons
+		 * and tracks traversed objects.
+		 *
+		 * @private
+		 * @param {*} value The value to compare.
+		 * @param {*} other The other value to compare.
+		 * @param {boolean} bitmask The bitmask flags.
+		 *  1 - Unordered comparison
+		 *  2 - Partial comparison
+		 * @param {Function} [customizer] The function to customize comparisons.
+		 * @param {Object} [stack] Tracks traversed `value` and `other` objects.
+		 * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
+		 */
+		function baseIsEqual(value, other, bitmask, customizer, stack) {
+		  if (value === other) {
+		    return true;
+		  }
+		  if (value == null || other == null || (!isObjectLike(value) && !isObjectLike(other))) {
+		    return value !== value && other !== other;
+		  }
+		  return baseIsEqualDeep(value, other, bitmask, customizer, baseIsEqual, stack);
+		}
+
+		/**
+		 * A specialized version of `baseIsEqual` for arrays and objects which performs
+		 * deep comparisons and tracks traversed objects enabling objects with circular
+		 * references to be compared.
+		 *
+		 * @private
+		 * @param {Object} object The object to compare.
+		 * @param {Object} other The other object to compare.
+		 * @param {number} bitmask The bitmask flags. See `baseIsEqual` for more details.
+		 * @param {Function} customizer The function to customize comparisons.
+		 * @param {Function} equalFunc The function to determine equivalents of values.
+		 * @param {Object} [stack] Tracks traversed `object` and `other` objects.
+		 * @returns {boolean} Returns `true` if the objects are equivalent, else `false`.
+		 */
+		function baseIsEqualDeep(object, other, bitmask, customizer, equalFunc, stack) {
+		  var objIsArr = isArray(object),
+		      othIsArr = isArray(other),
+		      objTag = objIsArr ? arrayTag : getTag(object),
+		      othTag = othIsArr ? arrayTag : getTag(other);
+
+		  objTag = objTag == argsTag ? objectTag : objTag;
+		  othTag = othTag == argsTag ? objectTag : othTag;
+
+		  var objIsObj = objTag == objectTag,
+		      othIsObj = othTag == objectTag,
+		      isSameTag = objTag == othTag;
+
+		  if (isSameTag && isBuffer(object)) {
+		    if (!isBuffer(other)) {
+		      return false;
+		    }
+		    objIsArr = true;
+		    objIsObj = false;
+		  }
+		  if (isSameTag && !objIsObj) {
+		    stack || (stack = new Stack);
+		    return (objIsArr || isTypedArray(object))
+		      ? equalArrays(object, other, bitmask, customizer, equalFunc, stack)
+		      : equalByTag(object, other, objTag, bitmask, customizer, equalFunc, stack);
+		  }
+		  if (!(bitmask & COMPARE_PARTIAL_FLAG)) {
+		    var objIsWrapped = objIsObj && hasOwnProperty.call(object, '__wrapped__'),
+		        othIsWrapped = othIsObj && hasOwnProperty.call(other, '__wrapped__');
+
+		    if (objIsWrapped || othIsWrapped) {
+		      var objUnwrapped = objIsWrapped ? object.value() : object,
+		          othUnwrapped = othIsWrapped ? other.value() : other;
+
+		      stack || (stack = new Stack);
+		      return equalFunc(objUnwrapped, othUnwrapped, bitmask, customizer, stack);
+		    }
+		  }
+		  if (!isSameTag) {
+		    return false;
+		  }
+		  stack || (stack = new Stack);
+		  return equalObjects(object, other, bitmask, customizer, equalFunc, stack);
+		}
+
+		/**
+		 * The base implementation of `_.isNative` without bad shim checks.
+		 *
+		 * @private
+		 * @param {*} value The value to check.
+		 * @returns {boolean} Returns `true` if `value` is a native function,
+		 *  else `false`.
+		 */
+		function baseIsNative(value) {
+		  if (!isObject(value) || isMasked(value)) {
+		    return false;
+		  }
+		  var pattern = isFunction(value) ? reIsNative : reIsHostCtor;
+		  return pattern.test(toSource(value));
+		}
+
+		/**
+		 * The base implementation of `_.isTypedArray` without Node.js optimizations.
+		 *
+		 * @private
+		 * @param {*} value The value to check.
+		 * @returns {boolean} Returns `true` if `value` is a typed array, else `false`.
+		 */
+		function baseIsTypedArray(value) {
+		  return isObjectLike(value) &&
+		    isLength(value.length) && !!typedArrayTags[baseGetTag(value)];
+		}
+
+		/**
+		 * The base implementation of `_.keys` which doesn't treat sparse arrays as dense.
+		 *
+		 * @private
+		 * @param {Object} object The object to query.
+		 * @returns {Array} Returns the array of property names.
+		 */
+		function baseKeys(object) {
+		  if (!isPrototype(object)) {
+		    return nativeKeys(object);
+		  }
+		  var result = [];
+		  for (var key in Object(object)) {
+		    if (hasOwnProperty.call(object, key) && key != 'constructor') {
+		      result.push(key);
+		    }
+		  }
+		  return result;
+		}
+
+		/**
+		 * A specialized version of `baseIsEqualDeep` for arrays with support for
+		 * partial deep comparisons.
+		 *
+		 * @private
+		 * @param {Array} array The array to compare.
+		 * @param {Array} other The other array to compare.
+		 * @param {number} bitmask The bitmask flags. See `baseIsEqual` for more details.
+		 * @param {Function} customizer The function to customize comparisons.
+		 * @param {Function} equalFunc The function to determine equivalents of values.
+		 * @param {Object} stack Tracks traversed `array` and `other` objects.
+		 * @returns {boolean} Returns `true` if the arrays are equivalent, else `false`.
+		 */
+		function equalArrays(array, other, bitmask, customizer, equalFunc, stack) {
+		  var isPartial = bitmask & COMPARE_PARTIAL_FLAG,
+		      arrLength = array.length,
+		      othLength = other.length;
+
+		  if (arrLength != othLength && !(isPartial && othLength > arrLength)) {
+		    return false;
+		  }
+		  // Assume cyclic values are equal.
+		  var stacked = stack.get(array);
+		  if (stacked && stack.get(other)) {
+		    return stacked == other;
+		  }
+		  var index = -1,
+		      result = true,
+		      seen = (bitmask & COMPARE_UNORDERED_FLAG) ? new SetCache : undefined;
+
+		  stack.set(array, other);
+		  stack.set(other, array);
+
+		  // Ignore non-index properties.
+		  while (++index < arrLength) {
+		    var arrValue = array[index],
+		        othValue = other[index];
+
+		    if (customizer) {
+		      var compared = isPartial
+		        ? customizer(othValue, arrValue, index, other, array, stack)
+		        : customizer(arrValue, othValue, index, array, other, stack);
+		    }
+		    if (compared !== undefined) {
+		      if (compared) {
+		        continue;
+		      }
+		      result = false;
+		      break;
+		    }
+		    // Recursively compare arrays (susceptible to call stack limits).
+		    if (seen) {
+		      if (!arraySome(other, function(othValue, othIndex) {
+		            if (!cacheHas(seen, othIndex) &&
+		                (arrValue === othValue || equalFunc(arrValue, othValue, bitmask, customizer, stack))) {
+		              return seen.push(othIndex);
+		            }
+		          })) {
+		        result = false;
+		        break;
+		      }
+		    } else if (!(
+		          arrValue === othValue ||
+		            equalFunc(arrValue, othValue, bitmask, customizer, stack)
+		        )) {
+		      result = false;
+		      break;
+		    }
+		  }
+		  stack['delete'](array);
+		  stack['delete'](other);
+		  return result;
+		}
+
+		/**
+		 * A specialized version of `baseIsEqualDeep` for comparing objects of
+		 * the same `toStringTag`.
+		 *
+		 * **Note:** This function only supports comparing values with tags of
+		 * `Boolean`, `Date`, `Error`, `Number`, `RegExp`, or `String`.
+		 *
+		 * @private
+		 * @param {Object} object The object to compare.
+		 * @param {Object} other The other object to compare.
+		 * @param {string} tag The `toStringTag` of the objects to compare.
+		 * @param {number} bitmask The bitmask flags. See `baseIsEqual` for more details.
+		 * @param {Function} customizer The function to customize comparisons.
+		 * @param {Function} equalFunc The function to determine equivalents of values.
+		 * @param {Object} stack Tracks traversed `object` and `other` objects.
+		 * @returns {boolean} Returns `true` if the objects are equivalent, else `false`.
+		 */
+		function equalByTag(object, other, tag, bitmask, customizer, equalFunc, stack) {
+		  switch (tag) {
+		    case dataViewTag:
+		      if ((object.byteLength != other.byteLength) ||
+		          (object.byteOffset != other.byteOffset)) {
+		        return false;
+		      }
+		      object = object.buffer;
+		      other = other.buffer;
+
+		    case arrayBufferTag:
+		      if ((object.byteLength != other.byteLength) ||
+		          !equalFunc(new Uint8Array(object), new Uint8Array(other))) {
+		        return false;
+		      }
+		      return true;
+
+		    case boolTag:
+		    case dateTag:
+		    case numberTag:
+		      // Coerce booleans to `1` or `0` and dates to milliseconds.
+		      // Invalid dates are coerced to `NaN`.
+		      return eq(+object, +other);
+
+		    case errorTag:
+		      return object.name == other.name && object.message == other.message;
+
+		    case regexpTag:
+		    case stringTag:
+		      // Coerce regexes to strings and treat strings, primitives and objects,
+		      // as equal. See http://www.ecma-international.org/ecma-262/7.0/#sec-regexp.prototype.tostring
+		      // for more details.
+		      return object == (other + '');
+
+		    case mapTag:
+		      var convert = mapToArray;
+
+		    case setTag:
+		      var isPartial = bitmask & COMPARE_PARTIAL_FLAG;
+		      convert || (convert = setToArray);
+
+		      if (object.size != other.size && !isPartial) {
+		        return false;
+		      }
+		      // Assume cyclic values are equal.
+		      var stacked = stack.get(object);
+		      if (stacked) {
+		        return stacked == other;
+		      }
+		      bitmask |= COMPARE_UNORDERED_FLAG;
+
+		      // Recursively compare objects (susceptible to call stack limits).
+		      stack.set(object, other);
+		      var result = equalArrays(convert(object), convert(other), bitmask, customizer, equalFunc, stack);
+		      stack['delete'](object);
+		      return result;
+
+		    case symbolTag:
+		      if (symbolValueOf) {
+		        return symbolValueOf.call(object) == symbolValueOf.call(other);
+		      }
+		  }
+		  return false;
+		}
+
+		/**
+		 * A specialized version of `baseIsEqualDeep` for objects with support for
+		 * partial deep comparisons.
+		 *
+		 * @private
+		 * @param {Object} object The object to compare.
+		 * @param {Object} other The other object to compare.
+		 * @param {number} bitmask The bitmask flags. See `baseIsEqual` for more details.
+		 * @param {Function} customizer The function to customize comparisons.
+		 * @param {Function} equalFunc The function to determine equivalents of values.
+		 * @param {Object} stack Tracks traversed `object` and `other` objects.
+		 * @returns {boolean} Returns `true` if the objects are equivalent, else `false`.
+		 */
+		function equalObjects(object, other, bitmask, customizer, equalFunc, stack) {
+		  var isPartial = bitmask & COMPARE_PARTIAL_FLAG,
+		      objProps = getAllKeys(object),
+		      objLength = objProps.length,
+		      othProps = getAllKeys(other),
+		      othLength = othProps.length;
+
+		  if (objLength != othLength && !isPartial) {
+		    return false;
+		  }
+		  var index = objLength;
+		  while (index--) {
+		    var key = objProps[index];
+		    if (!(isPartial ? key in other : hasOwnProperty.call(other, key))) {
+		      return false;
+		    }
+		  }
+		  // Assume cyclic values are equal.
+		  var stacked = stack.get(object);
+		  if (stacked && stack.get(other)) {
+		    return stacked == other;
+		  }
+		  var result = true;
+		  stack.set(object, other);
+		  stack.set(other, object);
+
+		  var skipCtor = isPartial;
+		  while (++index < objLength) {
+		    key = objProps[index];
+		    var objValue = object[key],
+		        othValue = other[key];
+
+		    if (customizer) {
+		      var compared = isPartial
+		        ? customizer(othValue, objValue, key, other, object, stack)
+		        : customizer(objValue, othValue, key, object, other, stack);
+		    }
+		    // Recursively compare objects (susceptible to call stack limits).
+		    if (!(compared === undefined
+		          ? (objValue === othValue || equalFunc(objValue, othValue, bitmask, customizer, stack))
+		          : compared
+		        )) {
+		      result = false;
+		      break;
+		    }
+		    skipCtor || (skipCtor = key == 'constructor');
+		  }
+		  if (result && !skipCtor) {
+		    var objCtor = object.constructor,
+		        othCtor = other.constructor;
+
+		    // Non `Object` object instances with different constructors are not equal.
+		    if (objCtor != othCtor &&
+		        ('constructor' in object && 'constructor' in other) &&
+		        !(typeof objCtor == 'function' && objCtor instanceof objCtor &&
+		          typeof othCtor == 'function' && othCtor instanceof othCtor)) {
+		      result = false;
+		    }
+		  }
+		  stack['delete'](object);
+		  stack['delete'](other);
+		  return result;
+		}
+
+		/**
+		 * Creates an array of own enumerable property names and symbols of `object`.
+		 *
+		 * @private
+		 * @param {Object} object The object to query.
+		 * @returns {Array} Returns the array of property names and symbols.
+		 */
+		function getAllKeys(object) {
+		  return baseGetAllKeys(object, keys, getSymbols);
+		}
+
+		/**
+		 * Gets the data for `map`.
+		 *
+		 * @private
+		 * @param {Object} map The map to query.
+		 * @param {string} key The reference key.
+		 * @returns {*} Returns the map data.
+		 */
+		function getMapData(map, key) {
+		  var data = map.__data__;
+		  return isKeyable(key)
+		    ? data[typeof key == 'string' ? 'string' : 'hash']
+		    : data.map;
+		}
+
+		/**
+		 * Gets the native function at `key` of `object`.
+		 *
+		 * @private
+		 * @param {Object} object The object to query.
+		 * @param {string} key The key of the method to get.
+		 * @returns {*} Returns the function if it's native, else `undefined`.
+		 */
+		function getNative(object, key) {
+		  var value = getValue(object, key);
+		  return baseIsNative(value) ? value : undefined;
+		}
+
+		/**
+		 * A specialized version of `baseGetTag` which ignores `Symbol.toStringTag` values.
+		 *
+		 * @private
+		 * @param {*} value The value to query.
+		 * @returns {string} Returns the raw `toStringTag`.
+		 */
+		function getRawTag(value) {
+		  var isOwn = hasOwnProperty.call(value, symToStringTag),
+		      tag = value[symToStringTag];
+
+		  try {
+		    value[symToStringTag] = undefined;
+		    var unmasked = true;
+		  } catch (e) {}
+
+		  var result = nativeObjectToString.call(value);
+		  if (unmasked) {
+		    if (isOwn) {
+		      value[symToStringTag] = tag;
+		    } else {
+		      delete value[symToStringTag];
+		    }
+		  }
+		  return result;
+		}
+
+		/**
+		 * Creates an array of the own enumerable symbols of `object`.
+		 *
+		 * @private
+		 * @param {Object} object The object to query.
+		 * @returns {Array} Returns the array of symbols.
+		 */
+		var getSymbols = !nativeGetSymbols ? stubArray : function(object) {
+		  if (object == null) {
+		    return [];
+		  }
+		  object = Object(object);
+		  return arrayFilter(nativeGetSymbols(object), function(symbol) {
+		    return propertyIsEnumerable.call(object, symbol);
+		  });
+		};
+
+		/**
+		 * Gets the `toStringTag` of `value`.
+		 *
+		 * @private
+		 * @param {*} value The value to query.
+		 * @returns {string} Returns the `toStringTag`.
+		 */
+		var getTag = baseGetTag;
+
+		// Fallback for data views, maps, sets, and weak maps in IE 11 and promises in Node.js < 6.
+		if ((DataView && getTag(new DataView(new ArrayBuffer(1))) != dataViewTag) ||
+		    (Map && getTag(new Map) != mapTag) ||
+		    (Promise && getTag(Promise.resolve()) != promiseTag) ||
+		    (Set && getTag(new Set) != setTag) ||
+		    (WeakMap && getTag(new WeakMap) != weakMapTag)) {
+		  getTag = function(value) {
+		    var result = baseGetTag(value),
+		        Ctor = result == objectTag ? value.constructor : undefined,
+		        ctorString = Ctor ? toSource(Ctor) : '';
+
+		    if (ctorString) {
+		      switch (ctorString) {
+		        case dataViewCtorString: return dataViewTag;
+		        case mapCtorString: return mapTag;
+		        case promiseCtorString: return promiseTag;
+		        case setCtorString: return setTag;
+		        case weakMapCtorString: return weakMapTag;
+		      }
+		    }
+		    return result;
+		  };
+		}
+
+		/**
+		 * Checks if `value` is a valid array-like index.
+		 *
+		 * @private
+		 * @param {*} value The value to check.
+		 * @param {number} [length=MAX_SAFE_INTEGER] The upper bounds of a valid index.
+		 * @returns {boolean} Returns `true` if `value` is a valid index, else `false`.
+		 */
+		function isIndex(value, length) {
+		  length = length == null ? MAX_SAFE_INTEGER : length;
+		  return !!length &&
+		    (typeof value == 'number' || reIsUint.test(value)) &&
+		    (value > -1 && value % 1 == 0 && value < length);
+		}
+
+		/**
+		 * Checks if `value` is suitable for use as unique object key.
+		 *
+		 * @private
+		 * @param {*} value The value to check.
+		 * @returns {boolean} Returns `true` if `value` is suitable, else `false`.
+		 */
+		function isKeyable(value) {
+		  var type = typeof value;
+		  return (type == 'string' || type == 'number' || type == 'symbol' || type == 'boolean')
+		    ? (value !== '__proto__')
+		    : (value === null);
+		}
+
+		/**
+		 * Checks if `func` has its source masked.
+		 *
+		 * @private
+		 * @param {Function} func The function to check.
+		 * @returns {boolean} Returns `true` if `func` is masked, else `false`.
+		 */
+		function isMasked(func) {
+		  return !!maskSrcKey && (maskSrcKey in func);
+		}
+
+		/**
+		 * Checks if `value` is likely a prototype object.
+		 *
+		 * @private
+		 * @param {*} value The value to check.
+		 * @returns {boolean} Returns `true` if `value` is a prototype, else `false`.
+		 */
+		function isPrototype(value) {
+		  var Ctor = value && value.constructor,
+		      proto = (typeof Ctor == 'function' && Ctor.prototype) || objectProto;
+
+		  return value === proto;
+		}
+
+		/**
+		 * Converts `value` to a string using `Object.prototype.toString`.
+		 *
+		 * @private
+		 * @param {*} value The value to convert.
+		 * @returns {string} Returns the converted string.
+		 */
+		function objectToString(value) {
+		  return nativeObjectToString.call(value);
+		}
+
+		/**
+		 * Converts `func` to its source code.
+		 *
+		 * @private
+		 * @param {Function} func The function to convert.
+		 * @returns {string} Returns the source code.
+		 */
+		function toSource(func) {
+		  if (func != null) {
+		    try {
+		      return funcToString.call(func);
+		    } catch (e) {}
+		    try {
+		      return (func + '');
+		    } catch (e) {}
+		  }
+		  return '';
+		}
+
+		/**
+		 * Performs a
+		 * [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
+		 * comparison between two values to determine if they are equivalent.
+		 *
+		 * @static
+		 * @memberOf _
+		 * @since 4.0.0
+		 * @category Lang
+		 * @param {*} value The value to compare.
+		 * @param {*} other The other value to compare.
+		 * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
+		 * @example
+		 *
+		 * var object = { 'a': 1 };
+		 * var other = { 'a': 1 };
+		 *
+		 * _.eq(object, object);
+		 * // => true
+		 *
+		 * _.eq(object, other);
+		 * // => false
+		 *
+		 * _.eq('a', 'a');
+		 * // => true
+		 *
+		 * _.eq('a', Object('a'));
+		 * // => false
+		 *
+		 * _.eq(NaN, NaN);
+		 * // => true
+		 */
+		function eq(value, other) {
+		  return value === other || (value !== value && other !== other);
+		}
+
+		/**
+		 * Checks if `value` is likely an `arguments` object.
+		 *
+		 * @static
+		 * @memberOf _
+		 * @since 0.1.0
+		 * @category Lang
+		 * @param {*} value The value to check.
+		 * @returns {boolean} Returns `true` if `value` is an `arguments` object,
+		 *  else `false`.
+		 * @example
+		 *
+		 * _.isArguments(function() { return arguments; }());
+		 * // => true
+		 *
+		 * _.isArguments([1, 2, 3]);
+		 * // => false
+		 */
+		var isArguments = baseIsArguments(function() { return arguments; }()) ? baseIsArguments : function(value) {
+		  return isObjectLike(value) && hasOwnProperty.call(value, 'callee') &&
+		    !propertyIsEnumerable.call(value, 'callee');
+		};
+
+		/**
+		 * Checks if `value` is classified as an `Array` object.
+		 *
+		 * @static
+		 * @memberOf _
+		 * @since 0.1.0
+		 * @category Lang
+		 * @param {*} value The value to check.
+		 * @returns {boolean} Returns `true` if `value` is an array, else `false`.
+		 * @example
+		 *
+		 * _.isArray([1, 2, 3]);
+		 * // => true
+		 *
+		 * _.isArray(document.body.children);
+		 * // => false
+		 *
+		 * _.isArray('abc');
+		 * // => false
+		 *
+		 * _.isArray(_.noop);
+		 * // => false
+		 */
+		var isArray = Array.isArray;
+
+		/**
+		 * Checks if `value` is array-like. A value is considered array-like if it's
+		 * not a function and has a `value.length` that's an integer greater than or
+		 * equal to `0` and less than or equal to `Number.MAX_SAFE_INTEGER`.
+		 *
+		 * @static
+		 * @memberOf _
+		 * @since 4.0.0
+		 * @category Lang
+		 * @param {*} value The value to check.
+		 * @returns {boolean} Returns `true` if `value` is array-like, else `false`.
+		 * @example
+		 *
+		 * _.isArrayLike([1, 2, 3]);
+		 * // => true
+		 *
+		 * _.isArrayLike(document.body.children);
+		 * // => true
+		 *
+		 * _.isArrayLike('abc');
+		 * // => true
+		 *
+		 * _.isArrayLike(_.noop);
+		 * // => false
+		 */
+		function isArrayLike(value) {
+		  return value != null && isLength(value.length) && !isFunction(value);
+		}
+
+		/**
+		 * Checks if `value` is a buffer.
+		 *
+		 * @static
+		 * @memberOf _
+		 * @since 4.3.0
+		 * @category Lang
+		 * @param {*} value The value to check.
+		 * @returns {boolean} Returns `true` if `value` is a buffer, else `false`.
+		 * @example
+		 *
+		 * _.isBuffer(new Buffer(2));
+		 * // => true
+		 *
+		 * _.isBuffer(new Uint8Array(2));
+		 * // => false
+		 */
+		var isBuffer = nativeIsBuffer || stubFalse;
+
+		/**
+		 * Performs a deep comparison between two values to determine if they are
+		 * equivalent.
+		 *
+		 * **Note:** This method supports comparing arrays, array buffers, booleans,
+		 * date objects, error objects, maps, numbers, `Object` objects, regexes,
+		 * sets, strings, symbols, and typed arrays. `Object` objects are compared
+		 * by their own, not inherited, enumerable properties. Functions and DOM
+		 * nodes are compared by strict equality, i.e. `===`.
+		 *
+		 * @static
+		 * @memberOf _
+		 * @since 0.1.0
+		 * @category Lang
+		 * @param {*} value The value to compare.
+		 * @param {*} other The other value to compare.
+		 * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
+		 * @example
+		 *
+		 * var object = { 'a': 1 };
+		 * var other = { 'a': 1 };
+		 *
+		 * _.isEqual(object, other);
+		 * // => true
+		 *
+		 * object === other;
+		 * // => false
+		 */
+		function isEqual(value, other) {
+		  return baseIsEqual(value, other);
+		}
+
+		/**
+		 * Checks if `value` is classified as a `Function` object.
+		 *
+		 * @static
+		 * @memberOf _
+		 * @since 0.1.0
+		 * @category Lang
+		 * @param {*} value The value to check.
+		 * @returns {boolean} Returns `true` if `value` is a function, else `false`.
+		 * @example
+		 *
+		 * _.isFunction(_);
+		 * // => true
+		 *
+		 * _.isFunction(/abc/);
+		 * // => false
+		 */
+		function isFunction(value) {
+		  if (!isObject(value)) {
+		    return false;
+		  }
+		  // The use of `Object#toString` avoids issues with the `typeof` operator
+		  // in Safari 9 which returns 'object' for typed arrays and other constructors.
+		  var tag = baseGetTag(value);
+		  return tag == funcTag || tag == genTag || tag == asyncTag || tag == proxyTag;
+		}
+
+		/**
+		 * Checks if `value` is a valid array-like length.
+		 *
+		 * **Note:** This method is loosely based on
+		 * [`ToLength`](http://ecma-international.org/ecma-262/7.0/#sec-tolength).
+		 *
+		 * @static
+		 * @memberOf _
+		 * @since 4.0.0
+		 * @category Lang
+		 * @param {*} value The value to check.
+		 * @returns {boolean} Returns `true` if `value` is a valid length, else `false`.
+		 * @example
+		 *
+		 * _.isLength(3);
+		 * // => true
+		 *
+		 * _.isLength(Number.MIN_VALUE);
+		 * // => false
+		 *
+		 * _.isLength(Infinity);
+		 * // => false
+		 *
+		 * _.isLength('3');
+		 * // => false
+		 */
+		function isLength(value) {
+		  return typeof value == 'number' &&
+		    value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER;
+		}
+
+		/**
+		 * Checks if `value` is the
+		 * [language type](http://www.ecma-international.org/ecma-262/7.0/#sec-ecmascript-language-types)
+		 * of `Object`. (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
+		 *
+		 * @static
+		 * @memberOf _
+		 * @since 0.1.0
+		 * @category Lang
+		 * @param {*} value The value to check.
+		 * @returns {boolean} Returns `true` if `value` is an object, else `false`.
+		 * @example
+		 *
+		 * _.isObject({});
+		 * // => true
+		 *
+		 * _.isObject([1, 2, 3]);
+		 * // => true
+		 *
+		 * _.isObject(_.noop);
+		 * // => true
+		 *
+		 * _.isObject(null);
+		 * // => false
+		 */
+		function isObject(value) {
+		  var type = typeof value;
+		  return value != null && (type == 'object' || type == 'function');
+		}
+
+		/**
+		 * Checks if `value` is object-like. A value is object-like if it's not `null`
+		 * and has a `typeof` result of "object".
+		 *
+		 * @static
+		 * @memberOf _
+		 * @since 4.0.0
+		 * @category Lang
+		 * @param {*} value The value to check.
+		 * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
+		 * @example
+		 *
+		 * _.isObjectLike({});
+		 * // => true
+		 *
+		 * _.isObjectLike([1, 2, 3]);
+		 * // => true
+		 *
+		 * _.isObjectLike(_.noop);
+		 * // => false
+		 *
+		 * _.isObjectLike(null);
+		 * // => false
+		 */
+		function isObjectLike(value) {
+		  return value != null && typeof value == 'object';
+		}
+
+		/**
+		 * Checks if `value` is classified as a typed array.
+		 *
+		 * @static
+		 * @memberOf _
+		 * @since 3.0.0
+		 * @category Lang
+		 * @param {*} value The value to check.
+		 * @returns {boolean} Returns `true` if `value` is a typed array, else `false`.
+		 * @example
+		 *
+		 * _.isTypedArray(new Uint8Array);
+		 * // => true
+		 *
+		 * _.isTypedArray([]);
+		 * // => false
+		 */
+		var isTypedArray = nodeIsTypedArray ? baseUnary(nodeIsTypedArray) : baseIsTypedArray;
+
+		/**
+		 * Creates an array of the own enumerable property names of `object`.
+		 *
+		 * **Note:** Non-object values are coerced to objects. See the
+		 * [ES spec](http://ecma-international.org/ecma-262/7.0/#sec-object.keys)
+		 * for more details.
+		 *
+		 * @static
+		 * @since 0.1.0
+		 * @memberOf _
+		 * @category Object
+		 * @param {Object} object The object to query.
+		 * @returns {Array} Returns the array of property names.
+		 * @example
+		 *
+		 * function Foo() {
+		 *   this.a = 1;
+		 *   this.b = 2;
+		 * }
+		 *
+		 * Foo.prototype.c = 3;
+		 *
+		 * _.keys(new Foo);
+		 * // => ['a', 'b'] (iteration order is not guaranteed)
+		 *
+		 * _.keys('hi');
+		 * // => ['0', '1']
+		 */
+		function keys(object) {
+		  return isArrayLike(object) ? arrayLikeKeys(object) : baseKeys(object);
+		}
+
+		/**
+		 * This method returns a new empty array.
+		 *
+		 * @static
+		 * @memberOf _
+		 * @since 4.13.0
+		 * @category Util
+		 * @returns {Array} Returns the new empty array.
+		 * @example
+		 *
+		 * var arrays = _.times(2, _.stubArray);
+		 *
+		 * console.log(arrays);
+		 * // => [[], []]
+		 *
+		 * console.log(arrays[0] === arrays[1]);
+		 * // => false
+		 */
+		function stubArray() {
+		  return [];
+		}
+
+		/**
+		 * This method returns `false`.
+		 *
+		 * @static
+		 * @memberOf _
+		 * @since 4.13.0
+		 * @category Util
+		 * @returns {boolean} Returns `false`.
+		 * @example
+		 *
+		 * _.times(2, _.stubFalse);
+		 * // => [false, false]
+		 */
+		function stubFalse() {
+		  return false;
+		}
+
+		module.exports = isEqual;
+		});
+
+		//TODO work on reactivity
+		class For {
+
+			//$ = API method/variable
+			//_ = Internal method/variable
+			$parent;
+
+			//Element management
+			_parentElement; //Parent element to this
+
+			//Conditional exclusive ;)
+			_anchor; //Anchor point for loop
+			_array; //Array value
+			_cb;
+
+			_children = [];
+
+			constructor (array, cb) {
+				//Create anchor point
+				this._anchor = document.createTextNode('');
+				this._cb = cb;
+				this._array = array;
+			}
+
+			set_parent(parent) {
+				this._parentElement = parent;
+			}
+
+			remove_child () {}
+
+			async update () {
+				
+			}
+
+			async mount (root, before = false) {
+				//Mount anchor point
+				root.appendChild(this._anchor);
+				this.$parent = get_current_component();
+
+				//Initialize reactive vars.
+				//console.log(this._array);
+				//TODO do this but not stupid
+				for (let i in this._array.value) {
+					let output = await this._cb(this._array.value[i]);
+					if (output !== undefined || output !== null) this._children.push(output);
+				}
+
+				for (let i in this._children) {
+					set_current_component(this.$parent);
+					await this._children[i].mount(this._anchor, true);
+				}
+			}
+
+			async destroy () {
+				this._anchor.remove();
+				for (let element of this._children) element.destroy();
+				if (this._parentElement) this._parentElement.remove_child(this);
+			}
+
+		}
+
+		class Conditional {
+
+			//$ = API method/variable
+			//_ = Internal method/variable
+
+			//Element management
+			_parentElement; //Parent element to this
+			_childrenElements = new Set(); //Child elements
+
+			//Component management
+			$parent; //Parent component
+			$children = new Set(); //Child components
+
+			//Conditional exclusive ;)
+			_anchor; //Anchor point for conditional
+			_conditional; //Conditional callback
+			_activeElement; //Current active element(s)
+			_vars = []; //Vars to pass to conditional
+			_reactiveVars = []; //Reactive vars passed to constructor
+			_updateListeners = []; //Update listeners from reactive vars
+
+			constructor (vars, cb) {
+				//Create anchor point
+				this._anchor = document.createTextNode('');
+				this._conditional = cb;
+				this._reactiveVars = vars;
+			}
+
+			async update () {
+				//Run conditional callback
+				let output = await this._conditional(this._vars);
+				if (output !== null && output !== undefined && output !== false && this._activeElement == undefined) {
+					if (this.$parent.$children) this.$parent.$children.add(output);
+					set_current_component(this.$parent);
+					await output.mount(this._anchor, true);
+					await output.set_parent(this);
+					this._activeElement = output;
+					output = undefined;
+				} else if ((output == null || output == undefined || output == false) && this._activeElement !== undefined) {
+					if (this.$parent.$children) this.$parent.$children.delete(this._activeElement);
+					this._activeElement.destroy();
+					this._activeElement = undefined;
+				}
+			}
+
+			set_parent(parent) {
+				this._parentElement = parent;
+			}
+
+			remove_child () {}
+
+			async mount (root, before = false) {
+				//Mount anchor point
+				root.appendChild(this._anchor);
+
+				this.$parent = get_current_component();
+
+				//Initialize reactive vars.
+				for (let i in this._reactiveVars) {
+					//Get intial values
+					this._vars[i] = this._reactiveVars[i].get();
+
+					//Stores update listeners so they can be disposed of on destroy.
+					this._updateListeners.push(
+						this._reactiveVars[i].subscribe(((new_val, old_val) => {
+							this._vars[i] = new_val;
+							this.update();
+						}).bind(this))
+					);
+				}
+
+				//Run update
+				await this.update();
+			}
+
+			async destroy () {
+				for (let i in this._updateListeners) this._updateListeners[i]();
+				this._anchor.remove();
+				if (this._activeElement) this._activeElement.destroy();
+				if (this._parentElement) this._parentElement.remove_child(this);
+			}
+
+		}
+
+		function makeid(length) {
+			var result           = '';
+			var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+			var charactersLength = characters.length;
+			for ( var i = 0; i < length; i++ ) {
+				result += characters.charAt(Math.floor(Math.random() * charactersLength));
+			}
+			return result;
+		}
+
+		function variable (val) {
+			if (val.subscribe !== undefined) return val;
+
+			let subscribers = new Set();
+
+			let current_value = val;
+			let old_value = undefined;
+			return class {
+				static id = makeid(5);
+
+				//Used for user manipulation
+				static value = val;
+
+				static set (new_val) {
+					if (!lodash_isequal(new_val, current_value)) {
+						for (const subscriber of subscribers) {
+							subscriber(new_val, current_value);
+						}
+				
+						this.value = new_val;
+
+						old_value = current_value;
+						current_value = new_val;
+					}
+				}
+
+				static update () {
+					this.set(this.value);
+				}
+				
+				static get () {
+					return current_value;
+				}
+
+				static get_last() {
+					return old_value;
+				}
+
+				static subscribe (run) {
+					subscribers.add(run);
+			
+					return () => {
+						subscribers.delete(run);
+					}
+				}
+			};
+		}
+
+		function anchor () {
+			return document.createTextNode('');
+		}
+
+		exports.Component = Component;
+		exports.Conditional = Conditional;
+		exports.Element = Element;
+		exports.For = For;
+		exports.anchor = anchor;
+		exports.beforeMount = beforeMount;
+		exports.beforeUnmount = beforeUnmount;
+		exports.get_current_component = get_current_component;
+		exports.makeid = makeid;
+		exports.onDestroy = onDestroy;
+		exports.onMount = onMount;
+		exports.onRender = onRender;
+		exports.set_current_component = set_current_component;
+		exports.variable = variable;
+
+		Object.defineProperty(exports, '__esModule', { value: true });
+
+	})));
+	});
+
+	class Test extends runtime.Component {
+	  instance() {
+	    let test = runtime.variable(this.$props.test);
+	    runtime.onMount(() => {
+	      console.log('Mounted');
+	    });
+	    runtime.onRender(() => {
+	      return this.createElement("div", null, this.createElement("div", null, "This is inside a nested component."), test, " ", this.createElement("br", null), test, " ", this.createElement("br", null), this.condition([test], vars => {
+	        return vars[0] >= 10 && vars[0] <= 100 ? this.createElement("h1", null, "Reactivity Test ", test, this.condition([test], vars => {
+	          return vars[0] >= 30 && vars[0] <= 50 || vars[0] >= 70 && vars[0] <= 100 ? this.createElement("h1", null, "Bruh") : null;
+	        }), this.createElement("br", null)) : null;
+	      }));
+	    });
+	  }
+	}
+
+	class App extends runtime.Component {
+	  async instance() {
+	    let test = runtime.variable(1);
+	    let color = runtime.variable('color: blue;');
+	    this.createElement("p", null, "Test2");
+	    let array = runtime.variable(["arraytest", "test2"]);
+	    let interval = setInterval(() => {
+	      test.value = test.get() + 1;
+	      test.update();
+	    }, 500);
+	    test.subscribe((new_val, old_val) => {
+	      if (new_val > 10 && color.get() !== color.get_last()) {
+	        color.set('color: green');
+	      }
+	    });
+	    runtime.onDestroy(() => {
+	      clearInterval(interval);
+	    });
+	    runtime.onMount(() => {
+	      console.log('Mounted');
+	    });
+	    runtime.onRender(() => {
+	      let styles = runtime.variable(`
+				* {
+					box-sizing: border-box;
+					letter-spacing: -0.05em !important;
+				}
+				
+				#app {
+					min-height: 100vh;
+					margin:0;
+					width:100%;
+				}
+
+				body {
+					margin: 0;
+				}
+
+				blockquote, dd, dl, figure, h1, h2, h3, h4, h5, h6, hr, p, pre {
+					margin: 0;
+				}
+				
+				body {
+					font-family: 'Inter', sans-serif;
+					padding: 0;
+					overflow: hidden;
+					position: fixed;
+					margin: 0;
+					min-height: 100vh;
+				}
+
+				html, body {
+					width:100%;
+				}
+
+				.test {
+					color: green;
+				}
+			`);
+	      function testFn() {
+	        alert('Test');
+	      }
+	      return this.createElement("div", {
+	        id: "app",
+	        style: "text-align:center;"
+	      }, this.createElement("style", null, styles), this.createElement("div", {
+	        style: "width:100%;text-align:center;height:50px;text-align:center;box-shadow: 0px 0px 18px 3px rgba(0,0,0,0.55);margin-bottom:20px;"
+	      }, this.createElement("p", {
+	        style: "height:100%;"
+	      }, "Header")), this.createElement("h1", {
+	        onClick: testFn
+	      }, "Click me!"), this.createElement("h2", {
+	        class: "test",
+	        style: color
+	      }, "Test ", test, "... ", this.createElement("span", null, test)), test, " ", this.createElement("br", null), this.condition([test], _vars => {
+	        return _vars[0] >= 10 && this.createElement("h2", null, "bruhxdddd");
+	      }), this.condition([test], _vars => {
+	        return _vars[0] >= 10 && _vars[0] <= 100 && this.createElement("h1", null, "Reactivity Test ", test, test >= 30 && test <= 50 || this.condition([test], _vars => {
+	          return _vars[0] >= 70 && _vars[0] <= 100 && this.createElement("h1", null, "Conditional 2");
+	        }), this.foreach(array, item => {
+	          return this.createElement("h1", null, item);
+	        }), this.createElement("br", null));
+	      }), this.createElement(Test, {
+	        test: test
+	      }), test, " ", this.createElement("br", null), test, " ", this.createElement("br", null), test, " ", this.createElement("br", null), test, " ", this.createElement("br", null), test, " ", this.createElement("br", null));
+	    });
+	  }
+	}
+
+	new App({
+	  mount: document.body,
+	  props: {
+	    bruh: 'moment'
+	  }
+	});
+
+}());
 //# sourceMappingURL=bundle.js.map

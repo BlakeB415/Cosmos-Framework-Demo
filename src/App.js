@@ -1,4 +1,4 @@
-import { Component, onMount, onRender, variable } from 'cosmos';
+import { Component, onMount, onRender, onDestroy, variable } from 'cosmos';
 import Test from './test.js'
 
 export default class App extends Component {
@@ -7,13 +7,16 @@ export default class App extends Component {
 	async instance () {
 		let test = variable(1);
 
-		let color = variable('color: blue;');
-		let test2 = variable(<p>Test2</p>)
+		let color = 'color: blue;';
+		let test2 = <p>Test2</p>
+		let array = ["arraytest", "test2"];
 
-		setInterval(() => {
-			test.set(test.get()+1)
-		}, 1000)
+		let interval = setInterval(() => {
+			test.value = test.get()+1;
+			test.update();
+		}, 500)
 
+		
 		/*
 		setTimeout(() => {
 			color.set('color: green;')
@@ -25,13 +28,17 @@ export default class App extends Component {
 			}
 		})
 
+		onDestroy(() => {
+			clearInterval(interval);
+		});
+
 
 		onMount(() => {
 			console.log('Mounted');
 		})
 
 		onRender(() => {
-			let styles = variable(`
+			let styles = `
 				* {
 					box-sizing: border-box;
 					letter-spacing: -0.05em !important;
@@ -67,7 +74,7 @@ export default class App extends Component {
 				.test {
 					color: green;
 				}
-			`);
+			`;
 
 			function testFn () {
 				alert('Test')
@@ -81,23 +88,26 @@ export default class App extends Component {
 					</div>
 					<h1 onClick={testFn}>Click me!</h1>
 
-					<h2 class="test">Test {test}... <span>{test}</span></h2>
+					<h2 class="test" style={color}>Test {test}... <span>{test}</span></h2>
 
 					{test} <br/>
-					{this.condition([test], (vars) => { //This method would be added automatically during compile process.
-							if (vars[0] >= 0 && vars[0] <= 20000) {
-								return (
-									<h1>Reactivity Test {test} 
-									{this.condition([test], (vars) => {
-											if ((vars[0] >= 100 && vars[0] <= 200) || (vars[0] >= 400 && vars[0] <= 600)) {
-												return <Test />
-											}
-									})}
-									<br/>
-									</h1>
-								); 
-							} 
-					})}
+
+					{test >= 10 &&
+						<h2>
+							bruhxdddd
+						</h2>
+					}
+
+					{(test >= 10 && test <= 100) && 
+						<h1>Reactivity Test {test} 
+							{(test >= 30 && test <= 50) || (test >= 70 && test <= 100) && <h1>Conditional 2</h1>}
+							{this.foreach(array, (item) => { return <h1>{item}</h1>; })}
+							<br/>
+						</h1>
+					}
+
+
+					<Test test={test} />
 					{test} <br/>
 					{test} <br/>
 					{test} <br/>

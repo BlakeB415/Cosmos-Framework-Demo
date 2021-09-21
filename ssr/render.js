@@ -25,4 +25,3 @@ parentPort.on("message", async data => {
 	await app.destroy();
 	process.exit(1);
 })
-
