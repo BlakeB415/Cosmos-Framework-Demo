@@ -10,7 +10,7 @@
     "@rollup/plugin-babel": "^5.3.0",
     "@rollup/plugin-commonjs": "^17.0.0",
     "@rollup/plugin-node-resolve": "^11.0.0",
-    "cosmos": "../Cosmos-Framework",
+    "cosmos": "git+https://github.com/CosmicMedia/Cosmos-Framework.git",
     "parse5": "https://gitpkg.now.sh/CosmicMedia/parse5/packages/parse5?master",
     "rollup": "^2.3.4",
     "rollup-plugin-css-only": "^3.1.0",
