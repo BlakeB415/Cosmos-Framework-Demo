@@ -2,12 +2,13 @@
 
 	const {StaticPool} = require("node-worker-threads-pool");
 	const express = require('express')
+	const path = require("path");
 	const app = express()
-	const port = 3000
+	const port = 5000
 
 	const pool = new StaticPool({
 		size: 20,
-		task: "./ssr/render.js"
+		task: path.resolve('./ssr/render.js')
 	});
 
 	app.get('/', async (req, res) => {

@@ -2,9 +2,9 @@ import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
-import babel from '@rollup/plugin-babel';
+import babel_ from '@rollup/plugin-babel';
+const babel = babel_.babel;
 import Cosmos from 'cosmos/compiler';
-const babel_ = babel.babel;
 
 import child_process from 'child_process';
 const production = !process.env.ROLLUP_WATCH;
@@ -33,11 +33,12 @@ function serve() {
 export default ['bundle', 'bundle_ssr'].map((name, index) => ({
 	input: name == "bundle" ? 'src/main.js' : 'src/App.js',
 	output: {
-		sourcemap: true,
+		//sourcemap: true,
 		format: name == "bundle" ? 'iife' : "cjs",
+    	strict: false,
 		name: 'app',
-		exports: 'auto',
-		file: `public/build/${name}.js`
+		file: `public/build/${name}.js`,
+		exports: 'auto'
 	},
 	plugins: [
 		// If you have external dependencies installed from
@@ -46,18 +47,16 @@ export default ['bundle', 'bundle_ssr'].map((name, index) => ({
 		// consult the documentation for details:
 		// https://github.com/rollup/plugins/tree/master/packages/commonjs
 		//Does JSX shit.
-		babel_({
-			"plugins": [
-				["@babel/plugin-transform-react-jsx", {
-					"pragma": "this.createElement"
-				}]
-			],
-			include: './src/**',
-			babelHelpers: 'inline'
-		}),
 		Cosmos(),
-		name == "bundle" ? resolve({ browser: true }) : resolve(),
-		commonjs(),
+		name == "bundle" ? resolve({ browser: true, dedupe: ['cosmos'] }) : resolve({ browser: true, dedupe: ['cosmos'] }),
+		commonjs({
+			sourceMap: false,
+			transformMixedEsModules:true
+		}),
+		name == "bundle" && babel({
+			babelHelpers: "bundled",
+			presets: ["@babel/preset-env"]
+		}),
 		
 
 		// In dev mode, call `npm run start` once
@@ -70,7 +69,7 @@ export default ['bundle', 'bundle_ssr'].map((name, index) => ({
 
 		// If we're building for production (npm run build
 		// instead of npm run dev), minify
-		name == "bundle" ? production && terser() : undefined,
+		name == "bundle" ? terser() : undefined,
 	],
 	watch: {
 		clearScreen: false

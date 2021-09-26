@@ -6,19 +6,21 @@
   "devDependencies": {
     "@babel/core": "^7.15.5",
     "@babel/plugin-transform-react-jsx": "^7.14.9",
+    "@babel/plugin-transform-runtime": "^7.15.0",
     "@rollup/plugin-babel": "^5.3.0",
     "@rollup/plugin-commonjs": "^17.0.0",
     "@rollup/plugin-node-resolve": "^11.0.0",
+    "cosmos": "../Cosmos-Framework",
+    "parse5": "https://gitpkg.now.sh/CosmicMedia/parse5/packages/parse5?master",
     "rollup": "^2.3.4",
     "rollup-plugin-css-only": "^3.1.0",
     "rollup-plugin-livereload": "^2.0.0",
     "rollup-plugin-terser": "^7.0.0",
-    "sirv-cli": "^1.0.0",
-    "cosmos": "../Cosmos-Framework"
+    "sirv-cli": "^1.0.0"
   },
   "scripts": {
     "build": "rollup -c",
-    "ssr": "node ssr/server.js",
+    "ssr": "npm run build && node ssr/server.js",
     "dev": "rollup -c -w",
     "start": "sirv public --no-clear",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -26,10 +28,13 @@
   "author": "CosmicMedia LLC",
   "license": "ISC",
   "dependencies": {
+    "@babel/preset-env": "^7.15.6",
+    "es6-shim": "^0.35.6",
     "express": "^4.17.1",
     "expressjs": "^1.0.1",
     "jsdom": "^17.0.0",
     "node-worker-threads-pool": "^1.5.0",
-    "rollup-plugin-jsx": "^1.0.3"
+    "rollup-plugin-jsx": "^1.0.3",
+    "socket.io-client": "^4.2.0"
   }
 }
