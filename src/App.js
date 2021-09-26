@@ -8,7 +8,7 @@ export default class App extends Component {
 
 	async instance () {
 		//console.log(module);
-		let test = variable(1);
+		let test = 1;
 
 		let color = 'color: blue;';
 		let test2 = <p>Test2</p>
